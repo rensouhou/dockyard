@@ -7,9 +7,9 @@ var srcDir = path.join(__dirname, 'src');
 module.exports = {
   entry: {
     vendor: ['react', 'immutable'],
-    devtools: srcDir + '/devtools.js',
-    panel: srcDir + '/panel.js',
-    background: srcDir + '/background.js'
+    devtools: srcDir + '/chrome/devtools.js',
+    panel: srcDir + '/chrome/panel.js',
+    background: srcDir + '/chrome/background.js'
   },
   output: {
     path: path.join(__dirname, 'compiled'),
@@ -23,7 +23,7 @@ module.exports = {
         loader: 'babel',
         query: {
           cacheDirectory: true,
-          presets: ['es2015', 'react']
+          presets: ['es2015', 'react', 'stage-1']
         }
       },
       {

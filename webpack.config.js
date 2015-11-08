@@ -8,7 +8,8 @@ module.exports = {
   entry: {
     vendor: ['react', 'immutable'],
     devtools: srcDir + '/devtools.js',
-    panel: srcDir + '/panel.js'
+    panel: srcDir + '/panel.js',
+    background: srcDir + '/background.js'
   },
   output: {
     path: path.join(__dirname, 'compiled'),
@@ -17,17 +18,17 @@ module.exports = {
   module: {
     loaders: [
       {
-        test: /\.css$/,
-        loader: 'style!css'
-      },
-      {
         test: /\.jsx?$/,
         exclude: /(node_modules|bower_components)/,
         loader: 'babel',
         query: {
           cacheDirectory: true,
-          presets: ['es2015']
+          presets: ['es2015', 'react']
         }
+      },
+      {
+        test: /\.json$/,
+        loader: 'json'
       }
     ]
   },

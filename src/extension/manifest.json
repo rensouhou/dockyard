@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": "$name$",
+  "version": "$version$",
+  "permissions": "$permissions$",
+  "devtools_page": "$devtools_page$",
+  "options_page": "$options_page$",
+  "background": "$background$",
+  "content_security_policy": "$csp$"
+}

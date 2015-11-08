@@ -7,7 +7,6 @@ var srcDir = path.join(__dirname, 'src');
 module.exports = {
   entry: {
     vendor: ['react', 'immutable'],
-    main: srcDir + '/main.js',
     devtools: srcDir + '/devtools.js',
     panel: srcDir + '/panel.js'
   },

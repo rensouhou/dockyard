@@ -17,6 +17,7 @@
     "babel-preset-stage-1": "^6.1.2",
     "html-webpack-plugin": "^1.6.2",
     "immutable": "^3.7.5",
+    "jquery": "^2.1.4",
     "json-loader": "^0.5.3",
     "react": "^0.14.2",
     "webpack": "^1.12.3"

@@ -13,7 +13,8 @@ let entry = {
   vendor: ['react', 'immutable'],
   devtools: srcDir + '/chrome/devtools.js',
   panel: srcDir + '/chrome/panel.js',
-  background: srcDir + '/chrome/background.js'
+  background: srcDir + '/chrome/background.js',
+  main: './index.js'
 };
 
 let output = {
@@ -30,10 +31,6 @@ let loaders = [
       cacheDirectory: true,
       presets: ['es2015', 'react', 'stage-1']
     }
-  },
-  {
-    test: /\.json$/,
-    loader: 'json'
   }
 ];
 

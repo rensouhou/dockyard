@@ -1,3 +1,3 @@
-let manifest = require('json!./src/chrome/manifest.json');
+let manifest = require('./src/chrome/manifest.json');
 
-consooe.log('manifest =>', manifest);
+console.log('manifest =>', manifest);

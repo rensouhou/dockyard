@@ -22,6 +22,7 @@
     "immutable": "^3.7.5",
     "jquery": "^2.1.4",
     "json-loader": "^0.5.3",
+    "preprocessor-loader": "^1.0.5",
     "react": "^0.14.2",
     "webpack": "^1.12.3"
   }

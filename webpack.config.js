@@ -25,6 +25,9 @@ let output = {
   filename: '[name].js'
 };
 
+// Loader definitions
+let preLoaders = [];
+
 let loaders = [
   {
     test: /\.jsx?$/,
@@ -39,10 +42,6 @@ let loaders = [
     test: /\.json$/,
     loader: 'json'
   }
-];
-
-let preLoaders = [
-
 ];
 
 let modules = { loaders, preLoaders };

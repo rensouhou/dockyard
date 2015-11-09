@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": 0,
-  "version": 0,
+  "name": "$NAME$",
+  "version": "$VERSION",
   "permissions": 0,
   "devtools_page": 0,
   "options_page": 0,

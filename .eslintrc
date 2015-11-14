@@ -1,0 +1,31 @@
+{
+  "rules": {
+    "brace-style": [2, "stroustrup", { "allowSingleLine": true }],
+    "no-this-before-super": [2],
+    "quotes": [2, "single"],
+    "linebreak-style": [2, "unix"],
+    "semi": [2, "always"],
+    "react/jsx-no-duplicate-props": [2],
+    "react/wrap-multilines": [1],
+    "no-console": [0],
+    "no-debugger": [0],
+    "no-undef": [0],
+    "no-unused-vars": [0],
+    "no-irregular-whitespace": [0]
+  },
+  "env": {
+    "es6": true,
+    "node": true,
+    "browser": true,
+    "jquery": true
+  },
+  "extends": "eslint:recommended",
+  "ecmaFeatures": {
+    "jsx": true,
+    "experimentalObjectRestSpread": true
+  },
+  "plugins": [
+    "react"
+  ],
+  "parser": "babel-eslint"
+}

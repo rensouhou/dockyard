@@ -24,6 +24,7 @@
     "immutable": "^3.7.5",
     "jquery": "^2.1.4",
     "json-loader": "^0.5.3",
+    "keymirror": "^0.1.1",
     "lodash": "^3.10.1",
     "preprocessor-loader": "^1.0.5",
     "react": "^0.14.2",

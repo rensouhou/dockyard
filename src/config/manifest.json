@@ -1,3 +1,11 @@
 {
-  "file": "manifest.json"
+  "line": true,
+  "file": true,
+  "callbacks": [
+    {
+      "fileName": "all",
+      "scope": "source",
+      "callback": "(function (source, fileName) { process.stdout.write('filename is: ' + fileName); return source; })"
+    }
+  ]
 }

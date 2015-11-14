@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "NODE_ENV=dev webpack --progres --colors --watch"
+    "start": "NODE_ENV=dev webpack --progres --colors --watch",
+    "build:dev": "NODE_ENV=dev webpack --progress --colors"
   },
   "author": "Stefan Rimaila <stefan@rimaila.fi>",
   "repository": "https://github.com/rensouhou/dockyard.git",

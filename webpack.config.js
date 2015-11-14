@@ -3,7 +3,6 @@
 let path = require('path');
 let webpack = require('webpack');
 let HtmlWebpackPlugin = require('html-webpack-plugin');
-let ExtractTextPlugin = require('extract-text-webpack-plugin');
 
 const IS_PRODUCTION = process.env.NODE_ENV === 'prod';
 
@@ -12,11 +11,9 @@ const destDir = path.resolve(__dirname, (IS_PRODUCTION ? 'dist' : 'compiled'));
 
 // Define entry points
 let entry = {
-  vendor: ['react', 'immutable'],
   devtools: srcDir + '/chrome/devtools.js',
   panel: srcDir + '/chrome/panel.js',
-  background: srcDir + '/chrome/background.js',
-  main: './index.js'
+  background: srcDir + '/chrome/background.js'
 };
 
 // Output paths and options
@@ -26,8 +23,6 @@ let output = {
 };
 
 // Loader definitions
-let preLoaders = [];
-
 let loaders = [
   {
     test: /\.jsx?$/,
@@ -40,19 +35,13 @@ let loaders = [
   },
   {
     test: /\.json$/,
-    loader: 'json'
+    loaders: ['json']
   }
 ];
-
-let modules = { loaders, preLoaders };
 
 let plugins = [
   new webpack.DefinePlugin({
     PRODUCTION: IS_PRODUCTION
-  }),
-  new webpack.optimize.CommonsChunkPlugin({
-    name: 'vendor',
-    minChunks: Infinity
   }),
   new webpack.ProvidePlugin({
     $: 'jquery'
@@ -76,9 +65,8 @@ if (IS_PRODUCTION) {
         warnings: false
       }
     }),
-    new webpack.BannerPlugin(require('./src/contrib/banner'), { entryOnly: true }),
-    new ExtractTextPlugin('manifest.json')
+    new webpack.BannerPlugin(require('./src/contrib/banner'), { entryOnly: true })
   );
 }
 
-module.exports = { entry, output, module: modules, plugins };
+module.exports = { entry, output, module: { loaders }, plugins };

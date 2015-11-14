@@ -6,4 +6,10 @@
  * @module chrome/background
  */
 
-console.log('background page');
+import T from 'immutable';
+
+import kancolleApi from '../config/kancolleApi';
+
+const port = chrome.runtime.connect({ name: kancolleApi.channelName });
+
+

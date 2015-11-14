@@ -1,7 +1,7 @@
 {
   "manifest_version": 2,
-  "name": "$NAME$",
-  "version": "$VERSION",
+  "name": "Dockyard",
+  "version": "0.1.0",
   "permissions": 0,
   "devtools_page": 0,
   "options_page": 0,

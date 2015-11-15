@@ -52,10 +52,17 @@ class NetworkRequestHandler {
    * @param {Array<Object>} headers
    * @returns {*}
    */
-  static shouldRequestBeHandled(headers) {
-    headers = T.fromJS(headers);
+  shouldRequestBeHandled(headers) {
+    let foundContentType = T.fromJS(headers)
+      .find((it) => {
+        return it.get('name') === 'Content-Type'
+      });
 
-    return headers.find((it) => it.get('name') === 'Content-Type').get('value');
+    if (!foundContentType) {
+      return false;
+    }
+
+    return this.options.get('acceptedContentTypes').includes(foundContentType.get('value'));
   }
 
   /**

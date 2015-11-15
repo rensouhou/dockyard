@@ -46,8 +46,7 @@ chrome.runtime.onConnect.addListener((port) => {
         content: requestContent
       });
 
-      if (req.hasIn(['response', 'headers']) &&
-        NetworkRequestHandler.shouldRequestBeHandled(requestResult.response.headers)) {
+      if (RequestHandler.shouldRequestBeHandled(requestResult.response.headers)) {
         let a = RequestHandler.parseRequest(result);
         console.log('a =>', a);
       }

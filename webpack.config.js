@@ -57,6 +57,10 @@ let plugins = [
   })
 ];
 
+let debug = !IS_PRODUCTION;
+
+let devtool = 'source-map';
+
 if (IS_PRODUCTION) {
   plugins = plugins.concat(
     new webpack.optimize.DedupePlugin(),
@@ -69,4 +73,4 @@ if (IS_PRODUCTION) {
   );
 }
 
-module.exports = { entry, output, module: { loaders }, plugins };
+module.exports = { entry, output, debug, devtool, module: { loaders }, plugins };

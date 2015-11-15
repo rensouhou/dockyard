@@ -6,46 +6,18 @@
  * @module chrome/panel
  */
 import T from 'immutable';
-import kancolleApi from '../config/kancolleApi';
-import addonEvents from '../enums/addonEvents';
+import config from '../config/kancolleApi';
+import AddonEvent from '../enums/addonEvents';
 
-const port = chrome.runtime.connect({ name: kancolleApi.channelName });
+const port = chrome.runtime.connect({ name: config.channelName });
 
-chrome.devtools.network.onRequestFinished.addListener((networkRequest) => {
-  const { response, request } = networkRequest;
-  const acceptedContent = T.List.of('text/javascript', 'text/html', 'text/plain');
-
-  let contentType = null;
-
-  // @fixme Please make me saner
-  response.headers.forEach((it) => {
-    if (it.name.toLowerCase() === 'content-type' && acceptedContent.includes(it.value)) {
-      contentType = it.value;
-    }
-  });
-
-  // @fixme No, pls, help
-  if (contentType) {
-    networkRequest.getContent((requestContent) => {
-      if (requestContent.includes(kancolleApi.panel.apiDataPrefix)) {
-        let content = requestContent.substring(kancolleApi.panel.apiDataPrefix.length);
-        let path = request.url.replace(/.*\/kcsapi/, '');
-        let apiJsonData = null;
-
-        try {
-          apiJsonData = JSON.parse(content)['api_data'];
-        }
-        catch (e) {
-          port.postMessage({ event: addonEvents.REQUEST_CONTENT_PARSE_ERROR });
-        }
-
-        let apiRequestObject = T.Map({
-          event: addonEvents.API_DATA_RECEIVED,
-          content, response, request, path, apiJsonData
-        });
-
-        port.postMessage(apiRequestObject);
-      }
+try {
+  chrome.devtools.network.onRequestFinished.addListener((requestResult) => {
+    requestResult.getContent((content) => {
+      port.postMessage({ event: AddonEvent.API_DATA_RECEIVED, requestResult, content });
     });
-  }
-});
+  });
+}
+catch (e) {
+  alert('error: ' + JSON.stringify(e.message));
+}

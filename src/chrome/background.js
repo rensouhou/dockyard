@@ -1,8 +1,10 @@
 /**
  * @overview
+ *  Chrome extension background script
  *
  * @since 0.1.0
  * @version 0.1.0
+ * @author Stefan Rimaila <stefan@rimaila.fi>
  * @module chrome/background
  */
 
@@ -14,13 +16,6 @@ import kancolleApi from '../config/kancolleApi';
 import AddonEvent from '../enums/addonEvents';
 
 let RequestHandler = new NetworkRequestHandler();
-
-let ResultRecord = T.Record({
-  request: null,
-  response: null,
-  timings: null,
-  content: null
-});
 
 chrome.runtime.onConnect.addListener((port) => {
   console.log('Added listener for %O', port);
@@ -37,12 +32,12 @@ chrome.runtime.onConnect.addListener((port) => {
       let requestResult = msg.requestResult;
       let requestContent = msg.content;
 
-      let result = new ResultRecord({
+      let result = {
         request: requestResult.request,
         response: requestResult.response,
         timings: requestResult.timings,
         content: requestContent
-      });
+      };
 
       if (RequestHandler.shouldRequestBeHandled(requestResult.response.headers)) {
         let a = RequestHandler.parseRequest(result);

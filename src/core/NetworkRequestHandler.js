@@ -2,14 +2,17 @@
  * @overview
  *
  * @since 0.1.0
+ * @author Stefan Rimaila <stefan@rimaila.fi>
  * @module src/core/NetworkRequestHandler
  */
 import T from 'immutable';
 import invariant from 'invariant';
+import qs from 'query-string';
 
 import kancolleApi from '../config/kancolleApi';
-import KancolleApiEvent from '../config/kancolleApiEvents';
+import KancolleApiEvents from '../config/kancolleApiEvents';
 import AddonEvent from '../enums/addonEvents';
+import { Parse as P } from '../core/Helpers';
 
 let NetworkRequestHandlerRecord = T.Record({
   apiDataPrefix: 'svdata=',
@@ -24,10 +27,11 @@ class NetworkRequestHandler {
     this.options = new NetworkRequestHandlerRecord(options);
   }
 
+  //noinspection JSMethodCanBeStatic
   /**
-   *
    * @param {string} content
    * @returns {array|object|null}
+   * @private
    */
   parseContent(content) {
     if (content.includes(kancolleApi.panel.apiDataPrefix)) {
@@ -50,7 +54,7 @@ class NetworkRequestHandler {
   /**
    *
    * @param {Array<Object>} headers
-   * @returns {*}
+   * @returns {Boolean}
    */
   shouldRequestBeHandled(headers) {
     let foundContentType = T.fromJS(headers)
@@ -65,10 +69,25 @@ class NetworkRequestHandler {
     return this.options.get('acceptedContentTypes').includes(foundContentType.get('value'));
   }
 
+  //noinspection JSMethodCanBeStatic
+  /**
+   * @param {string} path
+   * @returns {*}
+   */
+  getGameEvent(path) {
+    invariant(path, 'Cannot detect game event without a path. Check the calling method.');
+
+    const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
+
+    let e = KancolleApiEvents.findEntry((event, pathFragment) => path.includes(pathFragment));
+
+    return (!!e && e.length > 1) ? e[1] : UNKNOWN_EVENT;
+  }
+
   /**
    *
    * @param {T.Record} result
-   * @returns {*}
+   * @returns {object}
    */
   parseRequest(result) {
     let request = result.get('request');
@@ -76,12 +95,15 @@ class NetworkRequestHandler {
     let timings = result.get('timings');
     let content = result.get('content');
 
-    //console.log({ request, response, timings, content });
-
+    let postData = P.postData(request.postData);
     let data = this.parseContent(content);
-    let path = request.url.replace(/.*\/kcsapi/, '');
+    let gameEvent = this.getGameEvent(request.url);
 
-    return data;
+    return {
+      event: gameEvent,
+      post: postData,
+      get: data
+    };
   }
 }
 

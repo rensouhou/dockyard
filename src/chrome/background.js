@@ -34,8 +34,6 @@ chrome.runtime.onConnect.addListener((port) => {
       console.log.apply(console, ['console.log.apply =>'].concat(msg));
     }
     else if (msg.event && msg.event === AddonEvent.API_DATA_RECEIVED) {
-      let req = T.fromJS(msg.requestResult);
-
       let requestResult = msg.requestResult;
       let requestContent = msg.content;
 
@@ -48,7 +46,7 @@ chrome.runtime.onConnect.addListener((port) => {
 
       if (RequestHandler.shouldRequestBeHandled(requestResult.response.headers)) {
         let a = RequestHandler.parseRequest(result);
-        console.log('a =>', a);
+        console.log('RequestHandler.parseRequest =>\n\t', a);
       }
     }
   })

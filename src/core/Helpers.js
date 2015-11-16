@@ -14,7 +14,7 @@ class Parse {
    * @param {Object} postData
    */
   static postData(postData) {
-    return qs.parse(postData.text);
+    return postData ? qs.parse(postData.text) : null;
   }
 
   /**

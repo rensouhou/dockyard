@@ -14,6 +14,8 @@ import KancolleApiEvents from '../config/kancolleApiEvents';
 import AddonEvent from '../enums/addonEvents';
 import { Parse as P } from '../core/Helpers';
 
+const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
+
 let NetworkRequestHandlerRecord = T.Record({
   apiDataPrefix: 'svdata=',
   acceptedContentTypes: T.List.of('text/javascript', 'text/html', 'text/plain')
@@ -52,15 +54,11 @@ class NetworkRequestHandler {
   }
 
   /**
-   *
    * @param {Array<Object>} headers
    * @returns {Boolean}
    */
   shouldRequestBeHandled(headers) {
-    let foundContentType = T.fromJS(headers)
-      .find((it) => {
-        return it.get('name') === 'Content-Type'
-      });
+    let foundContentType = T.fromJS(headers).find((it) => it.get('name') === 'Content-Type');
 
     if (!foundContentType) {
       return false;
@@ -77,33 +75,25 @@ class NetworkRequestHandler {
   getGameEvent(path) {
     invariant(path, 'Cannot detect game event without a path. Check the calling method.');
 
-    const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
+    let gameEvent = KancolleApiEvents.findEntry((event, pathFragment) => path.includes(pathFragment));
 
-    let e = KancolleApiEvents.findEntry((event, pathFragment) => path.includes(pathFragment));
-
-    return (!!e && e.length > 1) ? e[1] : UNKNOWN_EVENT;
+    return (!!gameEvent && gameEvent.length > 1) ? gameEvent[1] : UNKNOWN_EVENT;
   }
 
   /**
    *
-   * @param {T.Record} result
+   * @param {object} result
    * @returns {object}
    */
   parseRequest(result) {
-    let request = result.get('request');
-    let response = result.get('response');
-    let timings = result.get('timings');
-    let content = result.get('content');
+    let { request, response, timings, content } = result;
 
-    let postData = P.postData(request.postData);
-    let data = this.parseContent(content);
-    let gameEvent = this.getGameEvent(request.url);
+    let path = request.url;
+    let post = P.postData(request.postData) || null;
+    let get = this.parseContent(content) || null;
+    let event = this.getGameEvent(path);
 
-    return {
-      event: gameEvent,
-      post: postData,
-      get: data
-    };
+    return { event, path, post, get };
   }
 }
 

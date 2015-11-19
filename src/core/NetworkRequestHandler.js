@@ -18,7 +18,7 @@ const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
 
 let NetworkRequestHandlerRecord = T.Record({
   apiDataPrefix: 'svdata=',
-  acceptedContentTypes: T.List.of('text/javascript', 'text/html', 'text/plain')
+  acceptedContentTypes: T.List.of('text/javascript', 'text/plain')
 });
 
 class NetworkRequestHandler {
@@ -81,14 +81,13 @@ class NetworkRequestHandler {
   }
 
   /**
-   *
-   * @param {object} result
+     * @param {object} result
    * @returns {object}
    */
   parseRequest(result) {
     let { request, response, timings, content } = result;
 
-    let path = request.url;
+    let path = P.getApiPath(request.url);
     let post = P.postData(request.postData) || null;
     let get = this.parseContent(content) || null;
     let event = this.getGameEvent(path);

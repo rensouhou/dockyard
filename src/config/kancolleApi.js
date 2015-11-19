@@ -8,7 +8,9 @@
 export default {
   channelName: 'Dockyard',
   panel: {
+    /** @deprecated */
     rootEventName: 'kancolledata',
+    /** @deprecated */
     rootEventNode: 'body',
     apiDataPrefix: 'svdata='
   }

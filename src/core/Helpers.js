@@ -8,7 +8,7 @@
 import qs from 'query-string';
 import invariant from 'invariant';
 
-class Parse {
+export class Parse {
   /**
    * @static
    * @param {Object} postData
@@ -20,11 +20,9 @@ class Parse {
   /**
    * @static
    * @param {string} url
-   * @returns {string|void|XML|*}
+   * @returns {string|null}
    */
-  static apiPath(url) {
+  static getApiPath(url) {
     return url.replace(/.*\/kcsapi/, '');
   }
 }
-
-export { Parse }

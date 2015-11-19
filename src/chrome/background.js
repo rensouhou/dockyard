@@ -6,6 +6,8 @@
  * @version 0.1.0
  * @author Stefan Rimaila <stefan@rimaila.fi>
  * @module chrome/background
+ *
+ * @todo Handling could be more decentralized/made into a core component
  */
 
 import _ from 'lodash';
@@ -41,7 +43,7 @@ chrome.runtime.onConnect.addListener((port) => {
 
       if (RequestHandler.shouldRequestBeHandled(requestResult.response.headers)) {
         let a = RequestHandler.parseRequest(result);
-        console.log('RequestHandler.parseRequest =>\n\t', a);
+        console.log('RequestHandler.parseRequest =>', a);
       }
     }
   })

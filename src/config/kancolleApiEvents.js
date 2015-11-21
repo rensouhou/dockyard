@@ -37,11 +37,13 @@ export default T.Map({
   'req_nyukyo/start': 'START_REPAIR',
   'req_member/get_practice_enemyinfo': 'GET_OPPONENT_INFO',
   'req_member/payitemuse': 'USE_PAID_ITEM',
+  'req_member/get_incentive': 'GET_INCENTIVE',
   'req_practice/battle': 'START_PVP_BATTLE',
-  'req_practice/midnight_battle': 'START_PVP_MIDNIGHT_BATTLE',
+  'req_practice/midnight_battle': 'START_PVP_NIGHT_BATTLE',
   'req_practice/battle_result': 'FINISHED_PRACTICE',
   'req_hensei/combined': 'FLEET_COMBINED',
   'req_combined_battle/battle_water': 'COMBINED_BATTLE_WATER_PHASE',
+  'req_battle_midnight/battle': 'START_NIGHT_BATTLE',
 
   'get_member/sortie_conditions': 'GET_SORTIE_CONDITIONS',
   'get_member/ship_deck': 'GET_FLEET',
@@ -59,6 +61,9 @@ export default T.Map({
   'get_member/practice': 'GET_PVP_OPPONENT_LIST',
   'get_member/payitem': 'GET_PAID_ITEMS',
   'get_member/slot_item': 'GET_SLOT_ITEMS',
+
+  // Needs to figure out what the shit this is
+  'get_member/unsetslot': 'UNSET_SLOT',
 
   // Needs data contracts
   'get_member/mapcell': 'GET_MAP_CELL',

@@ -29,7 +29,6 @@ class NetworkRequestHandler {
     this.options = new NetworkRequestHandlerRecord(options);
   }
 
-  //noinspection JSMethodCanBeStatic
   /**
    * @param {string} content
    * @returns {array|object|null}
@@ -67,7 +66,6 @@ class NetworkRequestHandler {
     return this.options.get('acceptedContentTypes').includes(foundContentType.get('value'));
   }
 
-  //noinspection JSMethodCanBeStatic
   /**
    * @param {string} path
    * @returns {*}
@@ -81,14 +79,15 @@ class NetworkRequestHandler {
   }
 
   /**
-     * @param {object} result
+   * @param {object} result
    * @returns {object}
    */
   parseRequest(result) {
-    let { request, response, timings, content } = result;
+    const { request, response, timings, content } = result;
 
     let path = P.getApiPath(request.url);
-    let post = P.postData(request.postData) || null;
+    let post = T.Map(P.postData(request.postData) || {})
+      .filterNot((v, k) => (k.includes('api_token') || k.includes('api_verno'))).toJS();
     let get = this.parseContent(content) || null;
     let event = this.getGameEvent(path);
 

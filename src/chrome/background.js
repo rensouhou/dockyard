@@ -23,14 +23,11 @@ chrome.runtime.onConnect.addListener((port) => {
   console.log('Added listener for %O', port);
 
   port.onMessage.addListener((msg) => {
-    // @fixme Debugging and horrible, horrible horribleness
-    if (typeof msg === 'string') {
-      console.log(msg);
+    if (_.isArray(msg)) {
+      console.log.apply(console, msg);
     }
-    else if (_.isArray(msg)) {
-      console.log.apply(console, ['console.log.apply =>'].concat(msg));
-    }
-    else if (msg.event && msg.event === AddonEvent.API_DATA_RECEIVED) {
+
+    if (msg.event && msg.event === AddonEvent.API_DATA_RECEIVED) {
       let requestResult = msg.requestResult;
       let requestContent = msg.content;
 
@@ -41,6 +38,7 @@ chrome.runtime.onConnect.addListener((port) => {
         content: requestContent
       };
 
+      // @fixme Extract and simplify into a single call with result
       if (RequestHandler.shouldRequestBeHandled(requestResult.response.headers)) {
         let a = RequestHandler.parseRequest(result);
         console.log('RequestHandler.parseRequest =>', a);

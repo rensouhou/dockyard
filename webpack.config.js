@@ -1,3 +1,9 @@
+/**
+ * @overview
+ *  Webpack configuration for Dockyard
+ *
+ * @since 0.1.0
+ */
 'use strict';
 
 let path = require('path');
@@ -59,7 +65,7 @@ let plugins = [
 
 let debug = !IS_PRODUCTION;
 
-let devtool = 'source-map';
+let devtool = !IS_PRODUCTION ? 'source-map' : null;
 
 if (IS_PRODUCTION) {
   plugins = plugins.concat(

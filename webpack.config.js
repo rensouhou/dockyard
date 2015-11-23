@@ -75,7 +75,7 @@ if (IS_PRODUCTION) {
         warnings: false
       }
     }),
-    new webpack.BannerPlugin(require('./src/contrib/banner'), { entryOnly: true })
+    new webpack.BannerPlugin(require('./src/config/banner'), { entryOnly: true })
   );
 }
 

@@ -2,10 +2,8 @@
  * @overview
  *
  * @since 0.1.0
- * @module config/kancolleApiEvents
- *
- * @todo just farm a _ton_ of raw data for the sake of being able to simulate API calls
- * @todo dump raw API data to a Firebase/Parse account
+ * @author Stefan Rimaila <stefan@rimaila.fi>
+ * @module src/game/ApiEvents
  */
 import T from 'immutable';
 
@@ -20,7 +18,7 @@ export default T.Map({
   'req_mission/return_instruction': 'QUIT_MISSION',
   'quest/clearitemget': 'COMPLETE_QUEST',
   'kuosyou/destroyship': 'SCRAP_SHIP',
-  'hokyu/charge': 'RESUPPLY_SHIP',
+  'req_hokyu/charge': 'RESUPPLY_SHIP',
   'req_kousyou/createitem': 'CRAFT_ITEM',
   'req_kousyou/createship': 'CRAFT_SHIP',
   'req_kousyou/destroyship': 'DESTROY_SHIP',
@@ -35,9 +33,11 @@ export default T.Map({
   'req_sortie/battle': 'SORTIE_STAGE',
   'req_sortie/battleresult': 'FINISHED_SORTIE',
   'req_nyukyo/start': 'START_REPAIR',
+
   'req_member/get_practice_enemyinfo': 'GET_OPPONENT_INFO',
   'req_member/payitemuse': 'USE_PAID_ITEM',
   'req_member/get_incentive': 'GET_INCENTIVE',
+
   'req_practice/battle': 'START_PVP_BATTLE',
   'req_practice/midnight_battle': 'START_PVP_NIGHT_BATTLE',
   'req_practice/battle_result': 'FINISHED_PRACTICE',

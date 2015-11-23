@@ -10,7 +10,7 @@ import invariant from 'invariant';
 import qs from 'query-string';
 
 import kancolleApi from '../config/kancolleApi';
-import KancolleApiEvents from '../config/kancolleApiEvents';
+import KancolleApiEvents from '../game/ApiEvents';
 import AddonEvent from '../enums/addonEvents';
 import { Parse as P } from '../core/Helpers';
 
@@ -18,15 +18,46 @@ const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
 
 let NetworkRequestHandlerRecord = T.Record({
   apiDataPrefix: 'svdata=',
+  datakeyPrefix: 'api_',
   acceptedContentTypes: T.List.of('text/javascript', 'text/plain')
 });
 
 class NetworkRequestHandler {
   /**
-   * @param {object} options
+   * @param {ApiDataResultObject} result
+   * @param {object} [options]
+   * @returns {boolean} - validity of the request; should it be handled?
    */
-  constructor(options) {
-    this.options = new NetworkRequestHandlerRecord(options);
+  constructor(result, options) {
+    this.request = result.request;
+    this.options = new NetworkRequestHandlerRecord(options || {});
+
+    let isRequestValid = this.isRequestValid();
+
+    // If the request is not valid, return immediately
+    if (!isRequestValid) {
+      return false;
+    }
+
+    // Otherwise, do content parsing
+
+
+    return isRequestValid;
+  }
+
+  /**
+   * Checks if the request is valid to handle or not
+   * @returns {boolean}
+   */
+  isRequestValid() {
+    let foundContentType = T.fromJS(this.request.headers)
+      .find((it) => it.get('name') === 'Content-Type');
+
+    if (!foundContentType) {
+      return false;
+    }
+
+    return this.options.get('acceptedContentTypes').includes(foundContentType.get('value'));
   }
 
   /**
@@ -34,9 +65,11 @@ class NetworkRequestHandler {
    * @returns {array|object|null}
    * @private
    */
-  parseContent(content) {
-    if (content.includes(kancolleApi.panel.apiDataPrefix)) {
-      content = content.substring(kancolleApi.panel.apiDataPrefix.length);
+  parseDataBody(content) {
+    let dataPrefix = this.options.get('apiDataPrefix');
+
+    if (content.includes(dataPrefix)) {
+      content = content.substring(dataPrefix);
       let data = null;
 
       try {
@@ -50,20 +83,6 @@ class NetworkRequestHandler {
     }
 
     return null;
-  }
-
-  /**
-   * @param {Array<Object>} headers
-   * @returns {Boolean}
-   */
-  shouldRequestBeHandled(headers) {
-    let foundContentType = T.fromJS(headers).find((it) => it.get('name') === 'Content-Type');
-
-    if (!foundContentType) {
-      return false;
-    }
-
-    return this.options.get('acceptedContentTypes').includes(foundContentType.get('value'));
   }
 
   /**
@@ -88,7 +107,7 @@ class NetworkRequestHandler {
     let path = P.getApiPath(request.url);
     let post = T.Map(P.postData(request.postData) || {})
       .filterNot((v, k) => (k.includes('api_token') || k.includes('api_verno'))).toJS();
-    let get = this.parseContent(content) || null;
+    let get = this.parseDataBody(content) || null;
     let event = this.getGameEvent(path);
 
     return { event, path, post, get };

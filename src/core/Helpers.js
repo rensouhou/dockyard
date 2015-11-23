@@ -3,7 +3,7 @@
  *
  * @since 0.1.0
  * @author Stefan Rimaila <stefan@rimaila.fi>
- * @module core/Helpers
+ * @module src/core/Helpers
  */
 import qs from 'query-string';
 import invariant from 'invariant';

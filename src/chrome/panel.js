@@ -3,10 +3,9 @@
  *
  * @since 0.1.0
  * @version 0.1.0
- * @module chrome/panel
+ * @module src/chrome/panel
  */
-import T from 'immutable';
-import config from '../config/kancolleApi';
+import config from '../config/extension';
 import AddonEvent from '../enums/addonEvents';
 
 const port = chrome.runtime.connect({ name: config.channelName });

@@ -13,7 +13,7 @@ import T from 'immutable';
 import NetworkRequestHandler from '../core/NetworkRequestHandler';
 import ApiDataParser from '../core/ApiDataParser';
 
-import kancolleApi from '../config/kancolleApi';
+import kancolleApi from '../config/extension';
 import AddonEvent from '../enums/addonEvents';
 
 chrome.runtime.onConnect.addListener((port) => {

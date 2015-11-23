@@ -9,7 +9,7 @@ import T from 'immutable';
 import invariant from 'invariant';
 import qs from 'query-string';
 
-import kancolleApi from '../config/kancolleApi';
+import kancolleApi from '../config/extension';
 import KancolleApiEvents from '../game/ApiEvents';
 import AddonEvent from '../enums/addonEvents';
 import { Parse as P } from '../core/Helpers';

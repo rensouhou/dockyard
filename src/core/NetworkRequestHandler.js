@@ -26,7 +26,6 @@ class NetworkRequestHandler {
   /**
    * @param {ApiDataResultObject} result
    * @param {object} [options]
-   * @returns {boolean} - validity of the request; should it be handled?
    */
   constructor(result, options) {
     this.request = result.request;

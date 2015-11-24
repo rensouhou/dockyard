@@ -12,9 +12,10 @@ export class Parse {
   /**
    * @static
    * @param {Object} postData
+   * @returns {Object}
    */
   static postData(postData) {
-    return postData ? qs.parse(postData.text) : null;
+    return postData ? qs.parse(postData.text) : {};
   }
 
   /**

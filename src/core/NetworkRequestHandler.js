@@ -9,8 +9,8 @@ import T from 'immutable';
 import invariant from 'invariant';
 import qs from 'query-string';
 
-import kancolleApi from '../config/extension';
-import KancolleApiEvents from '../game/ApiEvents';
+import GameApiEvents from '../game/ApiEvents';
+import config from '../config/extension';
 import AddonEvent from '../enums/addonEvents';
 import { Parse as P } from '../core/Helpers';
 
@@ -31,18 +31,6 @@ class NetworkRequestHandler {
   constructor(result, options) {
     this.request = result.request;
     this.options = new NetworkRequestHandlerRecord(options || {});
-
-    let isRequestValid = this.isRequestValid();
-
-    // If the request is not valid, return immediately
-    if (!isRequestValid) {
-      return false;
-    }
-
-    // Otherwise, do content parsing
-
-
-    return isRequestValid;
   }
 
   /**
@@ -91,9 +79,7 @@ class NetworkRequestHandler {
    */
   getGameEvent(path) {
     invariant(path, 'Cannot detect game event without a path. Check the calling method.');
-
-    let gameEvent = KancolleApiEvents.findEntry((event, pathFragment) => path.includes(pathFragment));
-
+    let gameEvent = GameApiEvents.findEntry((event, pathFragment) => path.includes(pathFragment));
     return (!!gameEvent && gameEvent.length > 1) ? gameEvent[1] : UNKNOWN_EVENT;
   }
 

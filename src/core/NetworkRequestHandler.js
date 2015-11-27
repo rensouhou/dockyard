@@ -16,17 +16,17 @@ import AddonEvent from '../enums/addonEvents';
 const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
 
 let NetworkRequestHandlerRecord = T.Record({
-  apiDataPrefix: 'svdata=',
-  apiPathPrefix: /.*\/kcsapi/,
-  datakeyPrefix: 'api_',
-  acceptedContentTypes: T.List.of('text/javascript', 'text/plain')
+  apiDataPrefix: config.apiDataPrefix,
+  apiPathPrefix: config.apiPathPrefix,
+  datakeyPrefix: config.datakeyPrefix,
+  acceptedContentTypes: T.List(config.acceptedContentTypes)
 });
 
 let NetworkRequestResultRecord = T.Record({
   path: null,
   event: UNKNOWN_EVENT,
-  requestGetData: [],
-  requestPostData: []
+  requestGetData: null,
+  requestPostData: null
 });
 
 class NetworkRequestHandler {

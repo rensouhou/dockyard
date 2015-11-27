@@ -11,9 +11,7 @@ import _ from 'lodash';
 import T from 'immutable';
 
 import NetworkRequestHandler from '../core/NetworkRequestHandler';
-import ApiDataParser from '../core/ApiDataParser';
 
-import kancolleApi from '../config/extension';
 import AddonEvent from '../enums/addonEvents';
 
 chrome.runtime.onConnect.addListener((port) => {
@@ -28,8 +26,6 @@ chrome.runtime.onConnect.addListener((port) => {
       let requestResult = msg.requestResult;
       let requestContent = msg.content;
 
-      console.log('API_DATA_RECEIVED');
-
       /** @type {ApiDataResultObject} */
       let result = {
         request: requestResult.request,
@@ -39,8 +35,10 @@ chrome.runtime.onConnect.addListener((port) => {
 
       let RequestHandler = new NetworkRequestHandler(result);
 
+      // @todo Make sure there is GC for classes to not keep polluting memory any more than necessary
+      // @todo Or then, instead of reinstantiating a new class on every request, etc..
       if (RequestHandler.isRequestValid()) {
-        console.log('request is valid');
+        let _result = RequestHandler.getData();
       }
     }
   })

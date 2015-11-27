@@ -22,6 +22,9 @@ let NetworkRequestHandlerRecord = T.Record({
   acceptedContentTypes: T.List(config.acceptedContentTypes)
 });
 
+/**
+ * @type {*|any|Record.Class}
+ */
 let NetworkRequestResultRecord = T.Record({
   path: null,
   event: UNKNOWN_EVENT,

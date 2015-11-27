@@ -8,6 +8,8 @@
  * @module src/config/extension
  */
 export default {
-  channelName: 'Dockyard',
-  apiDataPrefix: 'svdata='
+  apiDataPrefix: 'svdata=',
+  apiPathPrefix: /.*\/kcsapi/,
+  datakeyPrefix: 'api_',
+  acceptedContentTypes: ['text/javascript', 'text/plain']
 };

@@ -36,17 +36,16 @@ class NetworkRequestHandler {
   path = null;
   url = null;
   event = UNKNOWN_EVENT;
+  options = new NetworkRequestHandlerRecord();
 
   requestGetData = null;
   requestPostData = null;
 
   /**
    * @param {ApiDataResultObject} result
-   * @param {object} [options]
    */
-  constructor(result, options) {
-    this.request = result.request;
-    this.options = new NetworkRequestHandlerRecord(options || {});
+  constructor(result) {
+    this.result = result;
 
     this._parseRequest();
   }
@@ -54,16 +53,27 @@ class NetworkRequestHandler {
   /**
    * Checks if the request is valid to handle or not
    * @returns {boolean}
+   *
+   * @fixme This shit ain't working
    */
-  isRequestValid() {
-    let foundContentType = T.fromJS(this.request.headers)
-      .find((it) => it.get('name') === 'Content-Type');
+  static isRequestValid(headers) {
+    console.log('isRequestValid; headers =>', headers);
+    let foundContentType = T.Map(headers);
+    let accepted = T.List(config.acceptedContentTypes);
+
+    console.log('foundContentType =>', foundContentType);
+
+    foundContentType = foundContentType.find((it) => {
+      console.log('\t=>', it);
+
+      return !!it ? it.name === 'Content-Type' : false;
+    });
 
     if (!foundContentType) {
       return false;
     }
 
-    return this.options.get('acceptedContentTypes').includes(foundContentType.get('value'));
+    return accepted.get('acceptedContentTypes').includes(foundContentType.get('value'));
   }
 
   /**
@@ -78,6 +88,13 @@ class NetworkRequestHandler {
     });
   }
 
+  /**
+   * @returns {HttpRequest}
+   */
+  getRequest() {
+    return this.result.request;
+  }
+
   /**********************************************
    * Private methods
    **********************************************/
@@ -90,12 +107,12 @@ class NetworkRequestHandler {
   _parseDataBody(content) {
     let dataPrefix = this.options.get('apiDataPrefix');
 
-    if (content.includes(dataPrefix)) {
-      content = content.substring(dataPrefix);
+    if (content.indexOf(dataPrefix) !== -1) {
+      let _content = content.substring(dataPrefix.length);
       let data = null;
 
       try {
-        data = JSON.parse(content)['api_data'];
+        data = JSON.parse(_content)['api_data'];
       }
       catch (e) {
         console.error('Error parsing result', e.message, e.stack);
@@ -110,12 +127,13 @@ class NetworkRequestHandler {
   /**
    */
   _getGameEvent() {
-    invariant(this.path, 'Cannot detect game event without a path. Check the calling method.');
     let gameEvent = GameApiEvents.findEntry((event, pathFragment) => this.path.includes(pathFragment));
 
-    if (!!gameEvent && gameEvent.length > 1) {
-      this.event = gameEvent[1];
+    if (gameEvent && gameEvent.length > 1) {
+      return gameEvent[1];
     }
+
+    return UNKNOWN_EVENT;
   }
 
   /**
@@ -123,18 +141,16 @@ class NetworkRequestHandler {
    * @private
    */
   _parseRequest() {
-    const { request, response, content } = this.result;
+    let request = this.result.request;
+    let response = this.result.response;
+    let content = this.result.content;
 
-    let path = this._getApiPath(request.url);
-    let requestPostData = T.Map(qs.parse(request.postData) || {})
+    this.path = this._getApiPath();
+    this.event = this._getGameEvent();
+
+    this.requestPostData = T.Map(qs.parse(request.postData) || {})
       .filterNot((v, k) => (k.includes('api_token') || k.includes('api_verno'))).toJS();
-    let requestGetData = this._parseDataBody(content) || null;
-    let event = this._getGameEvent(path);
-
-    this.path = path;
-    this.event = event;
-    this.requestGetData = requestGetData;
-    this.requestPostData = requestPostData;
+    this.requestGetData = this._parseDataBody(content) || null;
   }
 
   /**
@@ -142,7 +158,8 @@ class NetworkRequestHandler {
    * @private
    */
   _getApiPath() {
-    this.path = this.url.replace(this.options.get('apiPathPrefix'), '');
+    let request = this.getRequest();
+    return request.url ? request.url.replace(this.options.get('apiPathPrefix'), '') : null;
   }
 }
 

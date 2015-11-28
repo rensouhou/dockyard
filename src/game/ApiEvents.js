@@ -43,6 +43,7 @@ export default T.Map({
   'req_practice/battle_result': 'FINISHED_PRACTICE',
   'req_hensei/combined': 'FLEET_COMBINED',
   'req_combined_battle/battle_water': 'COMBINED_BATTLE_WATER_PHASE',
+  'req_combined_battle/battleresult': 'FINISHED_COMBINED_FLEET',
   'req_battle_midnight/battle': 'START_NIGHT_BATTLE',
 
   'get_member/sortie_conditions': 'GET_SORTIE_CONDITIONS',

@@ -15,31 +15,21 @@ import NetworkRequestHandler from '../core/NetworkRequestHandler';
 import AddonEvent from '../enums/addonEvents';
 
 chrome.runtime.onConnect.addListener((port) => {
-  console.log('Added listener for %O', port);
+  console.log('Added listener for %O !', port);
 
   port.onMessage.addListener((msg) => {
     if (_.isArray(msg)) {
-      console.log.apply(console, ['debug => '].concat(msg));
+      console.log.apply(console, ['debug =>'].concat(msg));
     }
 
     if (msg.event && msg.event === AddonEvent.API_DATA_RECEIVED) {
-      let requestResult = msg.requestResult;
-      let requestContent = msg.content;
+      const { chromeNetworkRequest, content } = msg;
+      const { request, response } = chromeNetworkRequest;
 
-      /** @type {ApiDataResultObject} */
-      let result = {
-        request: requestResult.request,
-        response: requestResult.response,
-        content: requestContent
-      };
+      let RequestHandler = new NetworkRequestHandler({ request, response, content });
 
-      let RequestHandler = new NetworkRequestHandler(result);
-
-      // @todo Make sure there is GC for classes to not keep polluting memory any more than necessary
-      // @todo Or then, instead of reinstantiating a new class on every request, etc..
-      if (RequestHandler.isRequestValid()) {
-        let _result = RequestHandler.getData();
-      }
+      let _result = RequestHandler.getData();
+      console.log('_result =>', _result.toJS());
     }
   })
 });

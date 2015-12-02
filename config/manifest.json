@@ -1,0 +1,10 @@
+{
+  "manifest_version": 2,
+  "name": null,
+  "version": null,
+  "permissions": null,
+  "devtools_page": null,
+  "options_page": null,
+  "background": null,
+  "content_security_policy": null
+}

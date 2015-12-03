@@ -9,7 +9,6 @@
  */
 import _ from 'lodash';
 import T from 'immutable';
-import Firebase from 'firebase';
 
 import '../common';
 import NetworkRequestHandler from '../core/NetworkRequestHandler';
@@ -45,7 +44,6 @@ chrome.runtime.onConnect.addListener((port) => {
         console.group('Event => %s', r.event);
         console.info('requestGetData\t=> %O', r.requestGetData);
         console.info('requestPostData\t=> %O', r.requestPostData);
-        console.log('rest\t\t\t=> %O', r);
         console.groupEnd();
       }
     })

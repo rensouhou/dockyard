@@ -9,7 +9,7 @@ import T from 'immutable';
 import invariant from 'invariant';
 import qs from 'query-string';
 
-import GameApiEvents from 'game/ApiEvents';
+import GameApiEvents from './game/ApiEvents';
 import config from '../config/extension';
 import AddonEvent from '../enums/addonEvents';
 
@@ -122,9 +122,7 @@ class NetworkRequestHandler {
     this.path = this._getApiPath();
     this.event = this._getGameEvent();
 
-    console.log('request =>', request);
-
-    this.requestPostData = T.Map(qs.parse(request.postData) || {})
+    this.requestPostData = T.Map(qs.parse((request.postData ? request.postData.text : '')) || {})
       .filterNot((v, k) => (k.includes('api_token') || k.includes('api_verno'))).toJS();
     this.requestGetData = this._parseDataBody(content) || null;
   }

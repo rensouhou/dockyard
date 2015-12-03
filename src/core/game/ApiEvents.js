@@ -24,6 +24,7 @@ export default T.Map({
   'req_kousyou/destroyship': 'DESTROY_SHIP',
   'req_kousyou/destroyitem2': 'DESTROY_ITEM',
   'req_kousyou/getship': 'GET_SHIP',
+  'req_kousyou/remodel_slotlist': 'IMPROVE_ITEM',
   'req_kaisou/powerup': 'MODERNIZE_SHIP',
   'req_hensei/change': 'CHANGE_SHIP',
   'req_quest/start': 'START_QUEST',

@@ -28,6 +28,10 @@ let output = {
   filename: '[name].js'
 };
 
+let resolve = {
+  extensions: ['', '.webpack.js', '.web.js', '.ts', '.js']
+};
+
 // Loader definitions
 let loaders = [
   {
@@ -46,6 +50,7 @@ let loaders = [
 ];
 
 let plugins = [
+  new webpack.NodeEnvironmentPlugin(),
   new webpack.DefinePlugin({
     PRODUCTION: IS_PRODUCTION
   }),
@@ -79,4 +84,4 @@ if (IS_PRODUCTION) {
   );
 }
 
-module.exports = { entry, output, debug, devtool, module: { loaders }, plugins };
+module.exports = { entry, output, resolve, debug, devtool, module: { loaders }, plugins };

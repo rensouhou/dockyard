@@ -26,13 +26,9 @@ try {
         let responseHeaders = response.get('headers');
         let acceptedContentTypes = T.List(config.acceptedContentTypes);
 
-        let contentType = responseHeaders.find((it) => {
-          return it.get('name') === 'Content-Type';
-        });
+        let contentType = responseHeaders.find((it) => it.get('name') === 'Content-Type');
 
         if (contentType && contentType.size > 0 && acceptedContentTypes.includes(contentType.get('value'))) {
-          port.postMessage(['contentType =>', contentType]);
-
           chromeNetworkRequest.getContent((content) => {
             port.postMessage({ event: AddonEvent.API_DATA_RECEIVED, chromeNetworkRequest, content });
           });

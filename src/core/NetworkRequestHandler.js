@@ -9,7 +9,7 @@ import T from 'immutable';
 import invariant from 'invariant';
 import qs from 'query-string';
 
-import GameApiEvents from '../game/ApiEvents';
+import GameApiEvents from 'game/ApiEvents';
 import config from '../config/extension';
 import AddonEvent from '../enums/addonEvents';
 
@@ -48,32 +48,6 @@ class NetworkRequestHandler {
     this.result = result;
 
     this._parseRequest();
-  }
-
-  /**
-   * Checks if the request is valid to handle or not
-   * @returns {boolean}
-   *
-   * @fixme This shit ain't working
-   */
-  static isRequestValid(headers) {
-    console.log('isRequestValid; headers =>', headers);
-    let foundContentType = T.Map(headers);
-    let accepted = T.List(config.acceptedContentTypes);
-
-    console.log('foundContentType =>', foundContentType);
-
-    foundContentType = foundContentType.find((it) => {
-      console.log('\t=>', it);
-
-      return !!it ? it.name === 'Content-Type' : false;
-    });
-
-    if (!foundContentType) {
-      return false;
-    }
-
-    return accepted.get('acceptedContentTypes').includes(foundContentType.get('value'));
   }
 
   /**
@@ -147,6 +121,8 @@ class NetworkRequestHandler {
 
     this.path = this._getApiPath();
     this.event = this._getGameEvent();
+
+    console.log('request =>', request);
 
     this.requestPostData = T.Map(qs.parse(request.postData) || {})
       .filterNot((v, k) => (k.includes('api_token') || k.includes('api_verno'))).toJS();

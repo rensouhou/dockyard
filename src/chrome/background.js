@@ -12,10 +12,12 @@ import T from 'immutable';
 
 import '../common';
 import NetworkRequestHandler from '../core/NetworkRequestHandler';
-import GameDataHandler from '../core/game/GameDataHandler';
+import Game from '../core/game/index';
 
 import AddonEvent from '../enums/addonEvents';
 import { firebaseRef } from '../../runtime/firebase';
+
+let GameDataHandler = new Game.DataHandler();
 
 chrome.runtime.onConnect.addListener((port) => {
   console.log('Added listener for channel %s', port.name);
@@ -42,6 +44,7 @@ chrome.runtime.onConnect.addListener((port) => {
         firebaseRef.child(r.event).push(r);
 
         console.group('Event => %s', r.event);
+        console.info('timestamp\t\t=> %s', timestamp);
         console.info('requestGetData\t=> %O', r.requestGetData);
         console.info('requestPostData\t=> %O', r.requestPostData);
         console.groupEnd();

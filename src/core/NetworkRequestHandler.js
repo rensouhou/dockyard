@@ -13,6 +13,8 @@ import GameApiEvents from './game/ApiEvents';
 import config from '../config/extension';
 import AddonEvent from '../enums/addonEvents';
 
+import { NetworkRequestResult } from './models';
+
 const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
 
 let NetworkRequestHandlerRecord = T.Record({
@@ -20,16 +22,6 @@ let NetworkRequestHandlerRecord = T.Record({
   apiPathPrefix: config.apiPathPrefix,
   datakeyPrefix: config.datakeyPrefix,
   acceptedContentTypes: T.List(config.acceptedContentTypes)
-});
-
-/**
- * @type {*|any|Record.Class}
- */
-let NetworkRequestResultRecord = T.Record({
-  path: null,
-  event: UNKNOWN_EVENT,
-  requestGetData: null,
-  requestPostData: null
 });
 
 class NetworkRequestHandler {
@@ -54,7 +46,7 @@ class NetworkRequestHandler {
    * @returns {Map<string, V>}
    */
   getData() {
-    return new NetworkRequestResultRecord({
+    return new NetworkRequestResult({
       event: this.event,
       path: this.path,
       requestGetData: this.requestGetData,

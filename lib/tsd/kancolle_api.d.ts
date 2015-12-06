@@ -5,70 +5,71 @@ import IncomingMessage = chrome.gcm.IncomingMessage;
 
 declare module KCAPI {
   /**
-   * Game Events
-   *
-   * @event api/GET_BASE_DATA
+   * Game API
    */
-  interface ApiGetBaseData {
-    api_basic?: PlayerProfile;
-    api_combined_flag: number;
-    api_deck_port: Array<Fleet>;
-    api_event_object?: EventObject;
-    api_log: ApiLog;
-    api_material: Array<Material>;
-    api_ndock: Array<RepairDock>;
-    api_p_bgm_id: number;
-    api_parallel_quest_count: number;
-    api_ship: Array<Ship>;
+  export module API {
+    /**
+     * @event api/GET_BASE_DATA
+     */
+    export interface GetBaseData {
+      api_basic?: PlayerProfile;
+      api_combined_flag: number;
+      api_deck_port: Array<Fleet>;
+      api_event_object?: EventObject;
+      api_log: ApiLog;
+      api_material: Array<Material>;
+      api_ndock: Array<RepairDock>;
+      api_p_bgm_id: number;
+      api_parallel_quest_count: number;
+      api_ship: Array<Ship>;
+    }
+
+    /**
+     * @event api/GET_SHIP
+     * @path /api_req_kousyou/getship
+     */
+    export interface GetShip {
+      api_id: number;
+      api_kdock: Array<ConstructionDock>;
+      api_kdock_id: number; // POST
+      api_ship: Ship;
+      api_ship_id: number;
+      api_slotitem: Array<Object>
+    }
+
+    /**
+     * @event api/GET_FLEET_DATA
+     * @path /api_get_member/deck
+     */
+    export interface GetFleetData extends Array<Fleet> {}
+
+    /**
+     * @event api/GET_OPPONENT_INFO
+     * @path /api/req/member/get_practice_enemyinfo
+     */
+    export interface GetOpponentInfo extends OpponentInfo {}
+
+    /**
+     * @event api/IMPROVE_ITEM_RESULT
+     * @path /api_req_kousyou/remodel_slot
+     */
+    export interface ImproveItemResult {
+      api_after_material: Array<number>;  // @todo Fix me into a proper material type
+      api_after_slot: SlotItem;
+      api_remodel_flag: number;
+      api_remodel_id: Array<number>;
+      api_voice_id: number;
+      api_voice_ship_id: number;
+    }
+
+    /**
+     * @event api/LOAD_FLEET_PRESET
+     * @path /api_req_hensei/preset_select
+     *
+     * Response identical to that of what a fleet looks like.
+     */
+    export interface LoadFleetPreset extends Fleet {}
   }
-
-  /**
-   * @event api/GET_SHIP
-   * @path /api_req_kousyou/getship
-   */
-  interface ApiGetShip {
-    api_id: number;
-    api_kdock: Array<ConstructionDock>;
-    api_kdock_id: number; // POST
-    api_ship: Ship;
-    api_ship_id: number;
-    api_slotitem: Array<Object>
-  }
-
-  /**
-   * @event api/GET_FLEET_DATA
-   * @path /api_get_member/deck
-   */
-  interface ApiGetFleets {
-    (): Array<Fleet>;
-  }
-
-  /**
-   * @event api/GET_OPPONENT_INFO
-   * @path /api/req/member/get_practice_enemyinfo
-   */
-  interface ApiGetOpponentInfo extends OpponentInfo {}
-
-  /**
-   * @event api/IMPROVE_ITEM_RESULT
-   * @path /api_req_kousyou/remodel_slot
-   */
-  interface RemodelSlot {
-    api_after_material: Array<number>;  // @todo Fix me into a proper material type
-    api_after_slot: SlotItem;
-    api_remodel_flag: number;
-    api_remodel_id: Array<number>;
-    api_voice_id: number;
-    api_voice_ship_id: number;
-  }
-
-  /**
-   * @event api/LOAD_FLEET_PRESET
-   * @path /api_req_hensei/preset_select
-   *
-   * Response identical to that of what a fleet looks like.
-   */
-  interface LoadFleetPreset extends Fleet {}
 
   /**
    * Game data related interfaces
@@ -232,6 +233,5 @@ declare module KCAPI {
     api_locked: number;
     api_slotitem_id: number;
   }
-
 }
 

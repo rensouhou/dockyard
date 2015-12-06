@@ -9,10 +9,10 @@ function GetBaseData(eventRecord) {
   console.log('GetBaseData');
   console.log('└─ eventRecord => %O', eventRecord);
 
-  /** @type {KCAPI.ApiGetBaseData} */
+  /** @type {KCAPI.API.GetBaseData} */
   let baseData = eventRecord.requestGetData;
 
-  /** @type {PlayerProfile} */
+  /** @type {KCAPI.PlayerProfile} */
   let playerProfile = baseData.api_basic;
 }
 

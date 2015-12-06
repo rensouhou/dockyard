@@ -21,7 +21,7 @@ class GameDataHandler {
   constructor() {
     console.info('New GameDataHandler');
 
-    // Take all default handlers
+    // Take care for all the default handlers
     T.Map(handlers).forEach((eventName, handler) => {
       const handlerName = decamelize(handler).toUpperCase();
       this.registerHandler(handlerName, eventName);

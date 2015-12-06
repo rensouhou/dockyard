@@ -4,7 +4,7 @@
  * @since 0.1.0
  */
 
-declare module KCAPI {
+declare module KanColle {
   /**
    * Game API
    */

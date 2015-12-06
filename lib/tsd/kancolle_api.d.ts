@@ -39,7 +39,9 @@ declare module KCAPI {
    * @event api/GET_FLEET_DATA
    * @path /api_get_member/deck
    */
-  interface ApiGetFleets {}
+  interface ApiGetFleets {
+    (): Array<Fleet>;
+  }
 
   /**
    * @event api/GET_OPPONENT_INFO

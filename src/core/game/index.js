@@ -1,12 +1,8 @@
 /**
  *
  */
-import DataHandler from './GameDataHandler';
+import GameDataHandler from './GameDataHandler';
 
 export {
-  DataHandler
+  GameDataHandler
 };
-
-export default {
-  DataHandler
-}

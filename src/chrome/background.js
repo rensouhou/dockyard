@@ -12,12 +12,13 @@ import T from 'immutable';
 
 import '../common';
 import NetworkRequestHandler from '../core/NetworkRequestHandler';
-import Game from '../core/game/index';
+import { GameDataHandler } from '../core/game/index';
 
 import AddonEvent from '../enums/addonEvents';
+
 import { firebaseRef } from '../../runtime/firebase';
 
-let GameDataHandler = new Game.DataHandler();
+let ApiDataHandler = new GameDataHandler();
 
 chrome.runtime.onConnect.addListener((port) => {
   console.log('Added listener for channel %s', port.name);
@@ -34,9 +35,9 @@ chrome.runtime.onConnect.addListener((port) => {
       if (msg.event && msg.event === AddonEvent.API_DATA_RECEIVED) {
         const { chromeNetworkRequest, content } = msg;
         const { request, response } = chromeNetworkRequest;
-        const timeStamp = +(new Date());
+        const timestamp = +(new Date());
 
-        let RequestHandler = new NetworkRequestHandler({ timeStamp, request, response, content });
+        let RequestHandler = new NetworkRequestHandler({ timestamp, request, response, content });
         let _result = RequestHandler.getData();
 
         // Just dump everything into Firebase
@@ -44,10 +45,13 @@ chrome.runtime.onConnect.addListener((port) => {
         firebaseRef.child(r.event).push(r);
 
         console.group('Event => %s', r.event);
+        console.info('path\t\t\t=> %s', r.path);
         console.info('timestamp\t\t=> %s', timestamp);
         console.info('requestGetData\t=> %O', r.requestGetData);
         console.info('requestPostData\t=> %O', r.requestPostData);
         console.groupEnd();
+
+        ApiDataHandler.handleEvent(_result);
       }
     })
 });

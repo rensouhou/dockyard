@@ -3,7 +3,7 @@
  *
  * @since 0.1.0
  * @author Stefan Rimaila <stefan@rimaila.fi>
- * @module src/game/ApiEvents
+ * @module src/core/game/ApiEvents
  */
 import T from 'immutable';
 
@@ -45,6 +45,7 @@ export default T.Map({
   'req_hensei/combined': 'FLEET_COMBINED',
   'req_combined_battle/battle_water': 'COMBINED_BATTLE_WATER_PHASE',
   'req_combined_battle/battleresult': 'FINISHED_COMBINED_FLEET',
+  '/api_req_combined_battle/midnight_battle': 'COMBINED_NIGHT_BATTLE',
   'req_battle_midnight/battle': 'START_NIGHT_BATTLE',
 
   'get_member/sortie_conditions': 'GET_SORTIE_CONDITIONS',

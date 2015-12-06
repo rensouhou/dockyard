@@ -1,6 +1,7 @@
-import IncomingMessage = chrome.gcm.IncomingMessage;
 /**
+ * Kancolle API Definition File
  *
+ * @since 0.1.0
  */
 
 declare module KCAPI {

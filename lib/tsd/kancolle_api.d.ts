@@ -39,9 +39,13 @@ declare module KCAPI {
    * @event api/GET_FLEET_DATA
    * @path /api_get_member/deck
    */
-  interface ApiGetFleets {
+  interface ApiGetFleets {}
 
-  }
+  /**
+   * @event api/GET_OPPONENT_INFO
+   * @path /api/req/member/get_practice_enemyinfo
+   */
+  interface ApiGetOpponentInfo extends OpponentInfo {}
 
   /**
    * @event api/IMPROVE_ITEM_RESULT
@@ -56,6 +60,13 @@ declare module KCAPI {
     api_voice_ship_id: number;
   }
 
+  /**
+   * @event api/LOAD_FLEET_PRESET
+   * @path /api_req_hensei/preset_select
+   *
+   * Response identical to that of what a fleet looks like.
+   */
+  interface LoadFleetPreset extends Fleet {}
 
   /**
    * Game data related interfaces
@@ -95,6 +106,27 @@ declare module KCAPI {
     api_starttime: number;
     api_tutorial: number;
     api_tutorial_progress: number;
+  }
+
+  /**
+   * PVP opponent detail info
+   */
+  interface OpponentInfo {
+    api_cmt: string;      // As opposed to `api_comment` in `PlayerProfile`
+    api_cmt_id: string;
+    api_deck: any;
+    api_deckname: string;
+    api_deckname_id: string;
+    api_experience: Array<number>;
+    api_friend: number;
+    api_furniture: number;
+    api_level: number;
+    api_member_id: number;
+    api_nickname: string;
+    api_nickname_id: string;
+    api_rank: number;
+    api_ship: Array<number>;      // ships/maxships
+    api_slotitem: Array<number>;  // slotitems/maxslotitems
   }
 
   interface Fleet {

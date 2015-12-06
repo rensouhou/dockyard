@@ -1,5 +1,6 @@
-
-import PlayerProfile from '../dataModels/PlayerProfile';
+/**
+ *
+ */
 
 /**
  * @param {NetworkRequestResultModel} eventRecord

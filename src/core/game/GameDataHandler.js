@@ -54,7 +54,7 @@ class GameDataHandler {
 
     console.log(`Calling \`${eventRecord.event}\` handler.`);
 
-    this.handlers.get(eventRecord.event).call(eventRecord);
+    this.handlers.get(eventRecord.event).call(null, eventRecord);
   }
 }
 

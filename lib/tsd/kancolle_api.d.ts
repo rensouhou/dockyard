@@ -10,7 +10,7 @@ declare module KCAPI {
    */
   export module API {
     /**
-     * @event api/GET_BASE_DATA
+     * @event GET_BASE_DATA
      */
     export interface GetBaseData {
       api_basic?: PlayerProfile;
@@ -26,7 +26,7 @@ declare module KCAPI {
     }
 
     /**
-     * @event api/GET_SHIP
+     * @event GET_SHIP
      * @path /api_req_kousyou/getship
      */
     export interface GetShip {
@@ -39,13 +39,13 @@ declare module KCAPI {
     }
 
     /**
-     * @event api/GET_FLEET_DATA
+     * @event GET_FLEET_DATA
      * @path /api_get_member/deck
      */
     export interface GetFleetData extends Array<Fleet> {}
 
     /**
-     * @event api/GET_OPPONENT_INFO
+     * @event GET_OPPONENT_INFO
      * @path /api/req/member/get_practice_enemyinfo
      */
     export interface GetOpponentInfo extends OpponentInfo {}
@@ -64,17 +64,49 @@ declare module KCAPI {
     }
 
     /**
-     * @event api/LOAD_FLEET_PRESET
+     * @event LOAD_FLEET_PRESET
      * @path /api_req_hensei/preset_select
      *
      * Response identical to that of what a fleet looks like.
      */
     export interface LoadFleetPreset extends Fleet {}
+
+    /**
+     * @event GET_SORTIE_CONDITIONS
+     * @path /api_get_member/sortie_conditions
+     */
+    export interface GetSortieConditions {
+      api_war: {
+        api_lose: string;
+        api_rate: string;
+        api_win: string;
+      };
+    }
+
+    /**
+     * @event GET_MAP_CELL
+     * @path /api_get_member/mapcell
+     */
+    export interface GetMapCell extends Array<MapCell> {}
+
+      /**
+       * @
+       */
+    export interface StartSortie {
+
+      }
   }
 
-  /**
-   * Game data related interfaces
-   */
+  // SORTIES
+
+  // Sortie conditions
+
+  // Single map cell
+  interface MapCell {
+    api_id: number;
+    api_passed: number;
+  }
+
   interface PlayerProfile {
     api_active_flag: number;
     api_comment: string;

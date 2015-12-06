@@ -1,3 +1,8 @@
+/**
+ * Game Events
+ *
+ * @event api/GET_BASE_DATA
+ */
 interface ApiGetBaseData {
   api_basic?: ApiPlayerProfile;
   api_combined_flag: number;
@@ -11,6 +16,29 @@ interface ApiGetBaseData {
   api_ship: Array<ApiShip>;
 }
 
+/**
+ * @event api/GET_SHIP
+ * @path /api_req_kousyou/getship
+ */
+interface ApiGetShip {
+  api_id: number;
+  api_kdock: Array<ApiConstructionDock>;
+  api_ship: ApiShip;
+  api_ship_id: number;
+  api_slotitem: Array<Object>
+}
+
+/**
+ * @event api/GET_FLEET_DATA
+ * @path /api_get_member/deck
+ */
+interface ApiGetFleets {
+
+}
+
+/**
+ * Game data related interfaces
+ */
 interface ApiPlayerProfile {
   api_active_flag: number;
   api_comment: string;
@@ -75,6 +103,9 @@ interface ApiMaterial {
   api_value: number;
 }
 
+/**
+ * @term api/ndock
+ */
 interface ApiRepairDock {
   api_complete_time: number;
   api_complete_time: string;
@@ -88,8 +119,21 @@ interface ApiRepairDock {
   api_state: number;
 }
 
+/**
+ * @term api/kdock
+ */
 interface ApiConstructionDock {
-
+  api_complete_time: number;
+  api_complete_time_str: string;
+  api_created_ship_id: number;
+  api_id: number;
+  api_item1: number;
+  api_item2: number;
+  api_item3: number;
+  api_item4: number;
+  api_item5: number;
+  api_member_id: number;
+  api_state: number;
 }
 
 interface ApiShip {

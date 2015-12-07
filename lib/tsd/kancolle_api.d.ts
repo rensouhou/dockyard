@@ -42,16 +42,18 @@ declare module KanColle {
      * @event GET_FLEET_DATA
      * @path /api_get_member/deck
      */
-    export interface GetFleetData extends Array<Fleet> {}
+    export interface GetFleetData extends Array<Fleet> {
+    }
 
     /**
      * @event GET_OPPONENT_INFO
      * @path /api/req/member/get_practice_enemyinfo
      */
-    export interface GetOpponentInfo extends OpponentInfo {}
+    export interface GetOpponentInfo extends OpponentInfo {
+    }
 
     /**
-     * @event api/IMPROVE_ITEM_RESULT
+     * @event IMPROVE_ITEM_RESULT
      * @path /api_req_kousyou/remodel_slot
      */
     export interface ImproveItemResult {
@@ -69,7 +71,8 @@ declare module KanColle {
      *
      * Response identical to that of what a fleet looks like.
      */
-    export interface LoadFleetPreset extends Fleet {}
+    export interface LoadFleetPreset extends Fleet {
+    }
 
     /**
      * @event GET_SORTIE_CONDITIONS
@@ -87,25 +90,22 @@ declare module KanColle {
      * @event GET_MAP_CELL
      * @path /api_get_member/mapcell
      */
-    export interface GetMapCell extends Array<MapCell> {}
+    export interface GetMapCell extends Array<MapCell> {
+    }
 
-      /**
-       * @
-       */
     export interface StartSortie {
-
-      }
+    }
   }
 
   // SORTIES
-
-  // Sortie conditions
+  // ---------
 
   // Single map cell
   interface MapCell {
     api_id: number;
     api_passed: number;
   }
+
 
   interface PlayerProfile {
     api_active_flag: number;

@@ -1,5 +1,5 @@
 /**
- *
+ * @overview
  */
 
 /**
@@ -15,6 +15,10 @@ function GetBaseData(eventRecord) {
 
   /** @type {KanColle.PlayerProfile} */
   let playerProfile = baseData.api_basic;
+
+  /** @type {Array<KanColle.Ship>} */
+  let playerShips = baseData.api_ship;
+
 }
 
 export default GetBaseData;

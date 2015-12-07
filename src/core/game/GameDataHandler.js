@@ -41,7 +41,7 @@ class GameDataHandler {
   }
 
   /**
-   * @param {NetworkRequestResultModel} eventRecord
+   * @param {Dockyard.NetworkRequestResult} eventRecord
    */
   handleEvent(eventRecord) {
     invariant(eventRecord, 'Cannot handle an empty event.');

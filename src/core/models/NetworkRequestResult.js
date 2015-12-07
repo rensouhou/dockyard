@@ -1,15 +1,15 @@
+/**
+ * @overview
+ *
+ * @since 0.1.0
+ * @author Stefan Rimaila <stefan@rimaila.fi>
+ * @module src/core/models/NetworkRequestResult
+ */
 import T from 'immutable';
 
 const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
 
-/**
- *
- * @type {*|any|Record.Class}
- * @property {string} path
- * @property {string} event
- * @property {*} requestGetData
- * @property {*} requestPostData
- */
+/** @type {Dockyard.NetworkRequestResult} */
 const NetworkRequestResultModel = T.Record({
   path: null,
   event: UNKNOWN_EVENT,

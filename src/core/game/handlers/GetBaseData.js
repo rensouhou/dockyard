@@ -3,7 +3,7 @@
  */
 
 /**
- * @param {NetworkRequestResultModel} eventRecord
+ * @param {Dockyard.NetworkEvent} eventRecord
  * @constructor
  */
 function GetBaseData(eventRecord) {

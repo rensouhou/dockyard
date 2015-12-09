@@ -9,7 +9,7 @@ import T from 'immutable';
 
 const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
 
-/** @type {Dockyard.NetworkRequestResult} */
+/** @type {Dockyard.NetworkEvent} */
 const NetworkRequestResultModel = T.Record({
   path: null,
   event: UNKNOWN_EVENT,

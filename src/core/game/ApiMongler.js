@@ -7,8 +7,20 @@
  * @author
  * @module src/core/game/ApiMongler
  */
+
+/**
+ * @type {Dockyard.ApiMongler}
+ */
 class ApiMongler {
   constructor() {
+
+  }
+
+  /**
+   *
+   * @param {Dockyard.Mongleable} data
+   */
+  handle(data) {
 
   }
 }

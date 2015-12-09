@@ -12,6 +12,9 @@ import decamelize from 'decamelize';
 
 import handlers from './handlers/index';
 
+/**
+ * @type {Dockyard.GameDataHandler}
+ */
 class GameDataHandler {
   handlers = T.Map();
 
@@ -41,7 +44,7 @@ class GameDataHandler {
   }
 
   /**
-   * @param {Dockyard.NetworkRequestResult} eventRecord
+   * @param {Dockyard.NetworkEvent} eventRecord
    */
   handleEvent(eventRecord) {
     invariant(eventRecord, 'Cannot handle an empty event.');
@@ -49,7 +52,7 @@ class GameDataHandler {
     // @todo Should this throw instead?
     if (!this.handlers.has(eventRecord.event)) {
       console.warn(`The event \`${eventRecord.event}\` does not have a handler registered to it.`);
-      return null;
+      return;
     }
 
     console.log(`Calling \`${eventRecord.event}\` handler.`);

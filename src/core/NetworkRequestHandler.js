@@ -24,6 +24,9 @@ let NetworkRequestHandlerRecord = T.Record({
   acceptedContentTypes: T.List(config.acceptedContentTypes)
 });
 
+/**
+ * @type {Dockyard.NetworkRequestHandler}
+ */
 class NetworkRequestHandler {
   path = null;
   url = null;
@@ -43,7 +46,7 @@ class NetworkRequestHandler {
   }
 
   /**
-   * @returns {Map<string, V>}
+   * @returns {NetworkEvent}
    */
   getData() {
     return new NetworkRequestResult({

@@ -15,10 +15,12 @@ import NetworkRequestHandler from '../core/NetworkRequestHandler';
 import { GameDataHandler } from '../core/game/index';
 
 import AddonEvent from '../enums/addonEvents';
-
 import { firebaseRef } from '../../runtime/firebase';
+import ApiDataStore from '../core/game/stores/ApiDataStore';
+import dispatcher from '../core/GameDataDispatcher';
 
 let ApiDataHandler = new GameDataHandler();
+let apiDataStore = new ApiDataStore(dispatcher, ['UPDATE_ACTION', 'MERGE_ACTION']);
 
 chrome.runtime.onConnect.addListener((port) => {
   console.log('Added listener for channel %s', port.name);

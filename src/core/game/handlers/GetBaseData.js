@@ -4,21 +4,19 @@
 
 /**
  * @param {Dockyard.NetworkEvent} eventRecord
- * @constructor
  */
 function GetBaseData(eventRecord) {
   console.log('GetBaseData');
   console.log('└─ eventRecord => %O', eventRecord);
 
-  /** @type {KanColle.API.GetBaseData} */
+  /** @type {kcsapi.api.GetBaseData} */
   let baseData = eventRecord.requestGetData;
 
-  /** @type {KanColle.PlayerProfile} */
+  /** @type {kcsapi.PlayerProfile} */
   let playerProfile = baseData.api_basic;
 
-  /** @type {Array<KanColle.Ship>} */
+  /** @type {Array<kcsapi.Ship>} */
   let playerShips = baseData.api_ship;
-
 }
 
 export default GetBaseData;

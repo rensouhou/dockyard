@@ -4,14 +4,8 @@
  * @since 0.1.0
  */
 
-declare namespace KanColle {
-  /**
-   * Game API
-   */
-  export module API {
-    /**
-     * @event GET_BASE_DATA
-     */
+declare namespace kcsapi {
+  module api {
     export interface GetBaseData {
       api_basic?: PlayerProfile;
       api_combined_flag: number;
@@ -96,7 +90,6 @@ declare namespace KanColle {
     export interface StartSortie {
     }
   }
-
   // SORTIES
   // ---------
 

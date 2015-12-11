@@ -7,12 +7,27 @@ namespace Dockyard {
     requestPostData: any;
   }
 
+  declare var Dispatcher: any;
+
   interface Mongleable {
     gotData: any;
     postData: any;
   }
 
-  // Classes
+  /**
+   * Game Data Dispatcher
+   */
+  enum GameDataDispatcherActions {}
+
+  interface GameDataDispatcher {
+    actionType: GameDataDispatcherActions;
+    eventType: string;
+    payload?: any;
+  }
+
+  /**
+   * Network Request Handler
+   */
   interface NetworkRequestHandler {
     new(handler: NetworkEvent): void;
 

@@ -9,6 +9,7 @@ import T from 'immutable';
 import invariant from 'invariant';
 import uppercamelcase from 'uppercamelcase';
 import decamelize from 'decamelize';
+import dispatcher from '../GameDataDispatcher';
 
 import handlers from './handlers/index';
 
@@ -57,7 +58,10 @@ class GameDataHandler {
 
     console.log(`Calling \`${eventRecord.event}\` handler.`);
 
-    this.handlers.get(eventRecord.event).call(null, eventRecord);
+    // This can probably be called synchronously.
+    // @todo Look in if workers/async work distribution for larger data sets
+    // @todo Also, move this into its own dispatcher _at some point_
+    return this.handlers.get(eventRecord.event).call(null, eventRecord);
   }
 }
 

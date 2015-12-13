@@ -1,7 +1,6 @@
-
 namespace Dockyard {
   import Action = chrome.fileSystemProvider.Action;
-  declare function GameDataHandlerFn (eventRecord: NetworkEvent, dispatcher?: GameDataDispatcherActions): void;
+  declare function GameDataHandlerFn(eventRecord:NetworkEvent, dispatcher?:GameDataDispatcherActions):void;
 
   interface NetworkEvent extends Immutable.Record.Class {
     path?: string;
@@ -34,7 +33,7 @@ namespace Dockyard {
    * Network Request Handler
    */
   interface NetworkRequestHandler {
-    new(handler: NetworkEvent): void;
+    new(handler:NetworkEvent): void;
 
     getData(): NetworkEvent;
   }
@@ -42,8 +41,8 @@ namespace Dockyard {
   interface GameDataHandler {
     new(): void;
 
-    registerHandler(event: string, handler: Function): void;
-    handleEvent(event: NetworkEvent): void;
+    registerHandler(event:string, handler:Function): void;
+    handleEvent(event:NetworkEvent): void;
   }
 
   interface HandledEvent {
@@ -54,17 +53,24 @@ namespace Dockyard {
 
   // The base class from which all API event handlers are derived from
   interface BaseHandler {
-    new(eventRecord: NetworkEvent, dispatcher: Dispatcher);
+    new(eventRecord:NetworkEvent, dispatcher:Dispatcher);
 
     handleState(): void;
-    dispatchState(actionType?: ActionType): void;
+    dispatchState(actionType?:ActionType): void;
   }
 
   // Dispatcher actions
   declare enum ActionType {
     UPDATE_API_DATA,
+    UPDATE_GAME_DATA,
     UPDATE_PLAYER_PROFILE,
     UPDATE_QUEST_LIST
+  }
+
+  // Game events
+  declare enum GameEvent {
+    GET_BASE_DATA,
+    GET_PROFILE_DATA
   }
 }
 

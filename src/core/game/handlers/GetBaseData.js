@@ -12,7 +12,7 @@ export default class GetBaseData extends BaseHandler {
 
     let profile = T.fromJS(this.GET.api_basic);
 
-    this.dispatchState();
+    this.dispatchState('BASE_DATA');
     console.groupEnd();
   }
 }

@@ -23,19 +23,7 @@ export default class ApiDataStore extends MapStore {
   }
 
   reduce(state, action) {
-    console.group('ApiDataStore.reduce');
-
-    switch(action.actionType) {
-      case 'UPDATE_API_DATA':
-        console.warn('UPDATE_API_DATA actionType');
-        break;
-    }
-
-    console.log('action =>', action);
-    console.log('state =>', state);
-
-    console.groupEnd();
-
+    console.log('ApiDataStore', this.getState(), state, action);
     return this.getState();
   }
 }

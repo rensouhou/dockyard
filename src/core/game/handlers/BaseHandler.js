@@ -56,7 +56,7 @@ export default class BaseHandler {
     console.log('└─ Dispatcher => %O', this.dispatcher);
 
     this.dispatcher.dispatch({
-      actionType: actionType,
+      actionType: 'UPDATE_GAME_DATA',
       eventName: this.eventRecord.event,
       payload: {
         GET: this.GET,

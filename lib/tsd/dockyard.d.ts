@@ -52,11 +52,6 @@ namespace Dockyard {
     models?: Array<any>;
   }
 
-  // The one responsible for making sense of the API data, before it's dispatched somewhere.
-  declare module ApiMongler {
-    export function handle(data: Mongleable): any;
-  }
-
   // The base class from which all API event handlers are derived from
   interface BaseHandler {
     new(eventRecord: NetworkEvent, dispatcher: Dispatcher);

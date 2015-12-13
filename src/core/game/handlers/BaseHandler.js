@@ -1,15 +1,17 @@
 /**
  * @overview
+ *  Declares a base `BaseHandler` class for game API events.
+ *  Classes can and should extend this class
  *
- * @since 0.0.0
- * @author Anon
- * @module
+ * @since 0.1.0
+ * @author Stefan Rimaila <stefan@rimaila.fi>
+ * @module src/core/game/handlers/BaseHandler
  */
 
 /**
  * @type {Dockyard.BaseHandler}
  */
-class BaseHandler {
+export default class BaseHandler {
   eventRecord = null;
   dispatcher = null;
   GET = null;
@@ -29,6 +31,17 @@ class BaseHandler {
     this.GET = eventRecord.GET;
     this.POST = eventRecord.POST;
     this.eventName = eventRecord.event;
+
+    this.handleState();
+  }
+
+  /**
+   * This method should be used for consuming the incoming API data.
+   * Must call `dispatchState()` after this method is done.
+   * @abstract
+   */
+  handleState() {
+    console.warn('`%s` event handler\'s `handleState` method has not been overridden', this.eventName);
   }
 
   /**
@@ -53,4 +66,3 @@ class BaseHandler {
   }
 }
 
-export default BaseHandler;

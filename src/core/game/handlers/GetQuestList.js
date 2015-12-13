@@ -6,15 +6,18 @@
  * @module src/core/game/handlers/GetQuestList
  */
 
-import BaseClass from './BaseHandler';
+import BaseHandler from './BaseHandler';
 
-export default class GetQuestList extends BaseClass {
-  constructor(eventRecord, dispatcher) {
-    super(eventRecord, dispatcher);
+/**
+ * @extends {BaseHandler}
+ */
+export default class GetQuestList extends BaseHandler {
+  handleState() {
+    console.group('GetQuestList.handleState()');
+    console.log('this.GET =>', this.GET);
 
-    console.log('GetQuestList:this.GET =>', this.GET);
-
-    // Dispatch the action found in {@link BaseClass}.
+    // Dispatch the action found in `BaseHandler`.
     this.dispatchState();
+    console.groupEnd();
   }
 };

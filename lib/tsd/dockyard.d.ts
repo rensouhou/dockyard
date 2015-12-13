@@ -61,6 +61,7 @@ namespace Dockyard {
   interface BaseHandler {
     new(eventRecord: NetworkEvent, dispatcher: Dispatcher);
 
+    handleState(): void;
     dispatchState(actionType?: ActionType): void;
   }
 

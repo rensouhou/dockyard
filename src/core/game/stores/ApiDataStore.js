@@ -1,12 +1,14 @@
 /**
  * @overview
+ *  Declares a base store class for other data stores to extend from,
+ *  with a set of helper methods to update
  *
- * @since 0.0.0
- * @author Anon
- * @module
+ * @since 0.1.0
+ * @author Stefan Rimaila <stefan@rimaila.fi>
+ * @module src/core/game/stores/ApiDataStore
  */
 
-import {MapStore} from 'flux/utils';
+import { MapStore } from 'flux/utils';
 import T from 'immutable';
 
 import handlers from '../handlers/index';
@@ -21,6 +23,7 @@ export default class ApiDataStore extends MapStore {
   }
 
   reduce(state, action) {
+    console.group('ApiDataStore.reduce');
 
     switch(action.actionType) {
       case 'UPDATE_API_DATA':
@@ -28,11 +31,11 @@ export default class ApiDataStore extends MapStore {
         break;
     }
 
-    console.log('ApiDataStore.reduce');
     console.log('action =>', action);
     console.log('state =>', state);
 
-    console.log('this.getState() =>', this.getState());
+    console.groupEnd();
+
     return this.getState();
   }
 }

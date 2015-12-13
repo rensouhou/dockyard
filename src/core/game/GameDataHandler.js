@@ -64,8 +64,6 @@ class GameDataHandler {
     // This can probably be called synchronously.
     // @todo Look in if workers/async work distribution for larger data sets
     // @todo Also, move this into its own dispatcher _at some point_
-    //handler.call(handler, eventRecord, dispatcher);
-
     this._createNewHandlerInstance(handler, eventRecord, dispatcher);
   }
 

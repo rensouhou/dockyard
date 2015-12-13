@@ -10,7 +10,8 @@
  *  de-camelcased versions, e.g. `GET_BASE_DATA` turns into `GetBaseData`.
  */
 import GetBaseData from './GetBaseData';
+import GetQuestList from './GetQuestList';
 
-export { GetBaseData };
+export { GetBaseData, GetQuestList };
 
-export default { GetBaseData };
+export default { GetBaseData, GetQuestList };

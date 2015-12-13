@@ -14,19 +14,17 @@ import handlers from '../handlers/index';
 export default class ApiDataStore extends MapStore {
   _actions = T.List();
 
-  constructor(dispatcher) {
+  constructor(dispatcher, actions) {
     console.log('new ApiDataStore', dispatcher);
     super(dispatcher);
     this._actions = T.List(actions);
   }
 
   reduce(state, action) {
-    switch(action.actionType) {
-      case 'X':
-        break;
 
-      default:
-        console.warn('No handler registered for act');
+    switch(action.actionType) {
+      case 'UPDATE_API_DATA':
+        console.warn('UPDATE_API_DATA actionType');
         break;
     }
 

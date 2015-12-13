@@ -46,8 +46,9 @@ class GameDataHandler {
 
   /**
    * @param {Dockyard.NetworkEvent} eventRecord
+   * @param {Dockyard.Dispatcher} dispatcher
    */
-  handleEvent(eventRecord) {
+  handleEvent(eventRecord, dispatcher) {
     invariant(eventRecord, 'Cannot handle an empty event.');
 
     // @todo Should this throw instead?
@@ -58,10 +59,27 @@ class GameDataHandler {
 
     console.log(`Calling \`${eventRecord.event}\` handler.`);
 
+    const handler = this.handlers.get(eventRecord.event);
+
     // This can probably be called synchronously.
     // @todo Look in if workers/async work distribution for larger data sets
     // @todo Also, move this into its own dispatcher _at some point_
-    return this.handlers.get(eventRecord.event).call(null, eventRecord);
+    //handler.call(handler, eventRecord, dispatcher);
+
+    this._createNewHandlerInstance(handler, eventRecord, dispatcher);
+  }
+
+  /**
+   * @param HandlerClass
+   * @param eventRecord
+   * @param dispatcher
+   * @returns {*}
+   * @private
+   */
+  _createNewHandlerInstance(HandlerClass, eventRecord, dispatcher) {
+    invariant(HandlerClass, 'Cannot have an empty `HandlerClass`.');
+
+    return new HandlerClass(eventRecord, dispatcher);
   }
 }
 

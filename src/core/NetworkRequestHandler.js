@@ -33,8 +33,8 @@ class NetworkRequestHandler {
   event = UNKNOWN_EVENT;
   options = new NetworkRequestHandlerRecord();
 
-  requestGetData = null;
-  requestPostData = null;
+  GET = null;
+  POST = null;
 
   /**
    * @param {ApiDataResultObject} result
@@ -52,8 +52,8 @@ class NetworkRequestHandler {
     return new NetworkRequestResult({
       event: this.event,
       path: this.path,
-      requestGetData: this.requestGetData,
-      requestPostData: this.requestPostData
+      GET: this.GET,
+      POST: this.POST
     });
   }
 
@@ -117,9 +117,9 @@ class NetworkRequestHandler {
     this.path = this._getApiPath();
     this.event = this._getGameEvent();
 
-    this.requestPostData = T.Map(qs.parse((request.postData ? request.postData.text : '')) || {})
+    this.POST = T.Map(qs.parse((request.postData ? request.postData.text : '')) || {})
       .filterNot((v, k) => (k.includes('api_token') || k.includes('api_verno'))).toJS();
-    this.requestGetData = this._parseDataBody(content) || null;
+    this.GET = this._parseDataBody(content) || null;
   }
 
   /**

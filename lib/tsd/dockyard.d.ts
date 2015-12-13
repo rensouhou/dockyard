@@ -1,13 +1,17 @@
 
 namespace Dockyard {
-  interface NetworkEvent {
+  declare function GameDataHandlerFn (eventRecord: NetworkEvent, dispatcher?: GameDataDispatcherActions): void;
+
+  interface NetworkEvent extends Immutable.Record.Class {
     path?: string;
     event: string;
-    requestGetData: any;
-    requestPostData: any;
+    GET: any;
+    POST: any;
   }
 
-  declare var Dispatcher: any;
+  interface Dispatcher {
+    dispatch(action): void;
+  }
 
   interface Mongleable {
     gotData: any;
@@ -41,9 +45,20 @@ namespace Dockyard {
     handleEvent(event: NetworkEvent): void;
   }
 
+  interface HandledEvent {
+    successful: boolean;
+    model?: any;
+    models?: Array<any>;
+  }
+
   // The one responsible for making sense of the API data, before it's dispatched somewhere.
   declare module ApiMongler {
     export function handle(data: Mongleable): any;
+  }
+
+  interface BaseHandler {
+    new(eventRecord: NetworkEvent, dispatcher: Dispatcher);
+    dispatchState(): void;
   }
 }
 

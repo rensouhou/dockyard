@@ -40,20 +40,20 @@ chrome.runtime.onConnect.addListener((port) => {
         const timestamp = +(new Date());
 
         let RequestHandler = new NetworkRequestHandler({ timestamp, request, response, content });
-        let _result = RequestHandler.getData();
+        let resultRecord = RequestHandler.getData();
 
         // Just dump everything into Firebase
-        let r = _result.toJS();
+        let r = resultRecord.toJS();
         firebaseRef.child(r.event).push(r);
 
         console.group('Event => %s', r.event);
-        console.info('path\t\t\t=> %s', r.path);
-        console.info('timestamp\t\t=> %s', timestamp);
-        console.info('requestGetData\t=> %O', r.requestGetData);
-        console.info('requestPostData\t=> %O', r.requestPostData);
+        console.info('path\t\t=> %s', r.path);
+        console.info('timestamp\t=> %s', timestamp);
+        console.info('GET\t\t\t=> %O', r.GET);
+        console.info('POST\t\t=> %O', r.POST);
         console.groupEnd();
 
-        ApiDataHandler.handleEvent(_result);
+        ApiDataHandler.handleEvent(resultRecord, dispatcher);
       }
     })
 });

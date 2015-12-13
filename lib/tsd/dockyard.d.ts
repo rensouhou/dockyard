@@ -1,5 +1,6 @@
 
 namespace Dockyard {
+  import Action = chrome.fileSystemProvider.Action;
   declare function GameDataHandlerFn (eventRecord: NetworkEvent, dispatcher?: GameDataDispatcherActions): void;
 
   interface NetworkEvent extends Immutable.Record.Class {
@@ -56,9 +57,18 @@ namespace Dockyard {
     export function handle(data: Mongleable): any;
   }
 
+  // The base class from which all API event handlers are derived from
   interface BaseHandler {
     new(eventRecord: NetworkEvent, dispatcher: Dispatcher);
-    dispatchState(): void;
+
+    dispatchState(actionType?: ActionType): void;
+  }
+
+  // Dispatcher actions
+  declare enum ActionType {
+    UPDATE_API_DATA,
+    UPDATE_PLAYER_PROFILE,
+    UPDATE_QUEST_LIST
   }
 }
 

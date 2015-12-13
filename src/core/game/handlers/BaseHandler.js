@@ -14,6 +14,7 @@ class BaseHandler {
   dispatcher = null;
   GET = null;
   POST = null;
+  eventName = null;
 
   /**
    * @param {Dockyard.NetworkEvent} eventRecord
@@ -27,15 +28,23 @@ class BaseHandler {
     this.dispatcher = dispatcher;
     this.GET = eventRecord.GET;
     this.POST = eventRecord.POST;
+    this.eventName = eventRecord.event;
   }
 
-  dispatchState() {
+  /**
+   * Dispatch an action to the dispatcher that will update the stores.
+   * `this.dispatchState()` must be called whenever the data that is
+   * given to stores is ready.
+   *
+   * @param {Dockyard.ActionType} actionType
+   */
+  dispatchState(actionType) {
     console.log('BaseHandler.dispatchState');
     console.log('└─ Dispatcher => %O', this.dispatcher);
 
     this.dispatcher.dispatch({
-      actionType: 'HERP',
-      eventName: '',
+      actionType: actionType,
+      eventName: this.eventRecord.event,
       payload: {
         GET: this.GET,
         POST: this.POST

@@ -7,7 +7,7 @@
 declare namespace kcsapi {
   module api {
     export interface GetBaseData {
-      api_basic?: PlayerProfile;
+      api_basic: PlayerProfile;
       api_combined_flag: number;
       api_deck_port: Array<Fleet>;
       api_event_object?: EventObject;

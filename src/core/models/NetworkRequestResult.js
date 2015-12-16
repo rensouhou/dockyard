@@ -13,8 +13,10 @@ const UNKNOWN_EVENT = 'UNKNOWN_EVENT';
 const NetworkRequestResultModel = T.Record({
   path: null,
   event: UNKNOWN_EVENT,
-  GET: null,
-  POST: null
+  method: {
+    GET: null,
+    POST: null
+  }
 });
 
 export default NetworkRequestResultModel;

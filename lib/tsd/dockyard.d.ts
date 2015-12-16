@@ -1,12 +1,19 @@
 namespace Dockyard {
-  import Action = chrome.fileSystemProvider.Action;
-  declare function GameDataHandlerFn(eventRecord:NetworkEvent, dispatcher?:GameDataDispatcherActions):void;
+  import MapStore = FluxUtils.MapStore;
+  import Dispatcher = Flux.Dispatcher;
+
+  declare function GameDataHandlerFn(eventRecord: NetworkEvent, dispatcher?: GameDataDispatcherActions): void;
+
+  interface NetworkEventMsg {
+    event: string;
+    requestResult: Object;
+    content: string;
+  }
 
   interface NetworkEvent extends Immutable.Record.Class {
     path?: string;
     event: string;
-    GET: any;
-    POST: any;
+    method: Object;
   }
 
   interface Dispatcher {
@@ -33,7 +40,7 @@ namespace Dockyard {
    * Network Request Handler
    */
   interface NetworkRequestHandler {
-    new(handler:NetworkEvent): void;
+    new(handler: NetworkEvent): void;
 
     getData(): NetworkEvent;
   }
@@ -41,8 +48,8 @@ namespace Dockyard {
   interface GameDataHandler {
     new(): void;
 
-    registerHandler(event:string, handler:Function): void;
-    handleEvent(event:NetworkEvent): void;
+    registerHandler(event: string, handler: Function): void;
+    handleEvent(event: NetworkEvent): void;
   }
 
   interface HandledEvent {
@@ -53,10 +60,10 @@ namespace Dockyard {
 
   // The base class from which all API event handlers are derived from
   interface BaseHandler {
-    new(eventRecord:NetworkEvent, dispatcher:Dispatcher);
+    new(eventRecord: NetworkEvent, dispatcher: Dispatcher);
 
     handleState(): void;
-    dispatchState(actionType?:ActionType): void;
+    dispatchState(actionType?: ActionType): void;
   }
 
   // Dispatcher actions
@@ -71,6 +78,26 @@ namespace Dockyard {
   declare enum GameEvent {
     GET_BASE_DATA,
     GET_PROFILE_DATA
+  }
+
+  // Game states
+  declare enum GameState {
+    IDLE,
+    IN_SORTIE,
+    IN_PRACTICE,
+    IN_REPAIR_DOCKS,
+    IN_MENU,
+    IN_QUEST_LIST,
+    OTHER
+  }
+
+  interface GameStateStore extends MapStore {
+    new(dispatcher: Dispatcher, actions?: any);
+
+  }
+
+  interface GameStateMap {
+    state: GameState;
   }
 }
 

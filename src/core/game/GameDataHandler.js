@@ -58,6 +58,7 @@ class GameDataHandler {
     }
 
     console.log(`Calling \`${eventRecord.event}\` handler.`);
+    console.log(' eventRecord => %O', eventRecord);
 
     const handler = this.handlers.get(eventRecord.event);
 
@@ -68,16 +69,16 @@ class GameDataHandler {
   }
 
   /**
-   * @param HandlerClass
-   * @param eventRecord
-   * @param dispatcher
+   * @param Handler
+   * @param {Dockyard.NetworkEvent} eventRecord
+   * @param {Dockyard.Dispatcher} dispatcher
    * @returns {*}
    * @private
    */
-  _createNewHandlerInstance(HandlerClass, eventRecord, dispatcher) {
-    invariant(HandlerClass, 'Cannot have an empty `HandlerClass`.');
+  _createNewHandlerInstance(Handler, eventRecord, dispatcher) {
+    invariant(Handler, 'Cannot have an empty `Handler`.');
 
-    return new HandlerClass(eventRecord, dispatcher);
+    return new Handler(eventRecord, dispatcher);
   }
 }
 

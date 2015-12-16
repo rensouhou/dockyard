@@ -6,6 +6,9 @@
 
 declare namespace kcsapi {
   module api {
+    /**
+     * @event GET_BASE_DATA
+     */
     export interface GetBaseData {
       api_basic: PlayerProfile;
       api_combined_flag: number;
@@ -20,16 +23,48 @@ declare namespace kcsapi {
     }
 
     /**
+     *
+     */
+    export interface GetPlayerRecordData {
+      GET: {
+        api_cmt: string;
+        api_cmt_id: string;
+        api_complate: Array<number>;
+        api_deck: number;
+        api_experience: Array<number>;
+        api_friend: number;
+        api_furniture: number;
+        api_kdoc: number;               // sic; missing last `k`
+        api_large_dock: number;         // 0/1 boolean, is large construction unlocked?
+        api_level: number;
+        api_material_max: number;       // regen cap
+        api_member_id: number;
+        api_mission: Object;            // expedition success stats
+        api_ndoc: number;               // sic; missing last `k`
+        api_nickname: string;
+        api_nickname_id: string;
+        api_photo_url?: string;
+        api_practice: Object;           // PVP success stats
+        api_rank: number;
+        api_ship: Array<number>;        // [current, max] number of ships
+        api_slotitem: Array<number>;    // [current, max] number of slot items
+        api_war: Object;                // sortie success stats
+      }
+    }
+
+    /**
      * @event GET_SHIP
      * @path /api_req_kousyou/getship
      */
     export interface GetShip {
-      api_id: number;
-      api_kdock: Array<ConstructionDock>;
-      api_kdock_id: number; // POST
-      api_ship: Ship;
-      api_ship_id: number;
-      api_slotitem: Array<Object>
+      GET: {
+        api_id: number;
+        api_kdock: Array<ConstructionDock>;
+        api_kdock_id: number; // POST
+        api_ship: Ship;
+        api_ship_id: number;
+        api_slotitem: Array<Object>
+      }
     }
 
     /**
@@ -57,6 +92,27 @@ declare namespace kcsapi {
       api_remodel_id: Array<number>;
       api_voice_id: number;
       api_voice_ship_id: number;
+    }
+
+    /**
+     * @event CRAFT_ITEM
+     * @path /api_req_kousyou/createitem
+     */
+    export interface CraftItem {
+      GET: {
+        api_create_flag: number;      // 0/1 bool?
+        api_material: Array<number>;  // "simple" material array
+        api_shizai_flag: number;      // 0/1 bool, was dev mats used?
+        api_slotitem: any;            // actually object
+        api_type3: any;               // ??
+        api_unsetslot: Array<number>; // ships that can equip?
+      }
+      POST: {
+        api_item1: string;    // fuel
+        api_item2: string;    // ammo
+        api_item3: string;    // steel
+        api_item4: string;    // bauxite
+      }
     }
 
     /**
@@ -90,10 +146,10 @@ declare namespace kcsapi {
     export interface StartSortie {
     }
   }
-  // SORTIES
-  // ---------
+// SORTIES
+// ---------
 
-  // Single map cell
+// Single map cell
   interface MapCell {
     api_id: number;
     api_passed: number;
@@ -251,8 +307,8 @@ declare namespace kcsapi {
     api_taisen: Array<number>;
   }
 
-  // Remodel done
-  // @fixme
+// Remodel done
+// @fixme
   interface SlotItem {
     api_id: number;
     api_level: number;

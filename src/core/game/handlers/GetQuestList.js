@@ -14,7 +14,8 @@ import BaseHandler from './BaseHandler';
 export default class GetQuestList extends BaseHandler {
   handleState() {
     console.group('GetQuestList.handleState()');
-    console.log('this.GET =>', this.GET);
+    console.log('this.method.GET\t\t=>', this.method.GET);
+    console.log('this.method.POST\t=>', this.method.POST);
 
     // Dispatch the action found in `BaseHandler`.
     this.dispatchState();

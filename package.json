@@ -23,6 +23,7 @@
     "cjson": "^0.3.2",
     "clean-webpack-plugin": "^0.1.4",
     "decamelize": "^1.1.1",
+    "eslint": "^1.10.3",
     "extract-text-webpack-plugin": "^0.9.1",
     "firebase": "^2.3.2",
     "flux": "^2.1.1",

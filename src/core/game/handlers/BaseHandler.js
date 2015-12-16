@@ -1,7 +1,6 @@
 /**
  * @overview
  *  Declares a base `BaseHandler` class for game API events.
- *  Classes can and should extend this class
  *
  * @since 0.1.0
  * @author Stefan Rimaila <stefan@rimaila.fi>
@@ -9,30 +8,39 @@
  */
 
 /**
+ * @public
  * @type {Dockyard.BaseHandler}
  */
 export default class BaseHandler {
   eventRecord = null;
-  dispatcher = null;
-  GET = null;
-  POST = null;
   eventName = null;
+  dispatcher = null;
+  result = null;
+  method = {
+    GET: null,
+    POST: null
+  };
 
   /**
    * @param {Dockyard.NetworkEvent} eventRecord
    * @param {Dockyard.Dispatcher} dispatcher
    */
   constructor(eventRecord, dispatcher) {
-    console.log('BaseHandler:');
-    console.log('└─ eventRecord => %O', eventRecord.toJS());
+    console.group('BaseHandler');
+    console.log('└─ eventRecord => %O', eventRecord);
 
     this.eventRecord = eventRecord;
-    this.dispatcher = dispatcher;
-    this.GET = eventRecord.GET;
-    this.POST = eventRecord.POST;
     this.eventName = eventRecord.event;
+    this.dispatcher = dispatcher;
+    this.method = {
+      GET: eventRecord.method.GET,
+      POST: eventRecord.method.POST
+    };
+
+    this.result = null;
 
     this.handleState();
+    console.groupEnd();
   }
 
   /**
@@ -48,10 +56,8 @@ export default class BaseHandler {
    * Dispatch an action to the dispatcher that will update the stores.
    * `this.dispatchState()` must be called whenever the data that is
    * given to stores is ready.
-   *
-   * @param {Dockyard.ActionType} actionType
    */
-  dispatchState(actionType) {
+  dispatchState() {
     console.log('BaseHandler.dispatchState');
     console.log('└─ Dispatcher => %O', this.dispatcher);
 
@@ -59,8 +65,10 @@ export default class BaseHandler {
       actionType: 'UPDATE_GAME_DATA',
       eventName: this.eventRecord.event,
       payload: {
-        GET: this.GET,
-        POST: this.POST
+        method: {
+          GET: this.GET,
+          POST: this.POST
+        }
       }
     })
   }

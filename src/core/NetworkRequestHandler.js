@@ -32,28 +32,28 @@ class NetworkRequestHandler {
   url = null;
   event = UNKNOWN_EVENT;
   options = new NetworkRequestHandlerRecord();
-
-  GET = null;
-  POST = null;
+  method = {
+    GET: null,
+    POST: null
+  };
 
   /**
    * @param {ApiDataResultObject} result
    */
   constructor(result) {
     this.result = result;
-
     this._parseRequest();
   }
 
   /**
+   * Returns an immutable `NetworkRequestRecord`
    * @returns {NetworkEvent}
    */
   getData() {
     return new NetworkRequestResult({
       event: this.event,
       path: this.path,
-      GET: this.GET,
-      POST: this.POST
+      method: this.method
     });
   }
 
@@ -70,7 +70,7 @@ class NetworkRequestHandler {
 
   /**
    * @param {string} content
-   * @returns {array|object|null}
+   * @returns {?array}
    * @private
    */
   _parseDataBody(content) {
@@ -117,9 +117,11 @@ class NetworkRequestHandler {
     this.path = this._getApiPath();
     this.event = this._getGameEvent();
 
-    this.POST = T.Map(qs.parse((request.postData ? request.postData.text : '')) || {})
-      .filterNot((v, k) => (k.includes('api_token') || k.includes('api_verno'))).toJS();
-    this.GET = this._parseDataBody(content) || null;
+    this.method = {
+      POST: T.Map(qs.parse((request.postData ? request.postData.text : '')) || {})
+        .filterNot((v, k) => (k.includes('api_token') || k.includes('api_verno'))).toJS(),
+      GET: this._parseDataBody(content)
+    };
   }
 
   /**

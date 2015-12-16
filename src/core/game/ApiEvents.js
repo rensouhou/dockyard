@@ -54,6 +54,7 @@ export default T.Map({
   'get_member/preset_deck': 'GET_FLEET_PRESETS',
   'get_member/deck': 'GET_FLEET_DATA',
   'get_member/basic': 'GET_PROFILE_DATA',
+  'get_member/record': 'GET_PLAYER_RECORD_DATA',
   'get_member/furniture': 'GET_FURNITURE',
   'get_member/slotitem': 'GET_SLOT_ITEMS',
   'get_member/useitem': 'GET_USABLE_ITEMS',

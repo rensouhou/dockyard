@@ -9,15 +9,19 @@ import T from 'immutable';
 import invariant from 'invariant';
 import uppercamelcase from 'uppercamelcase';
 import decamelize from 'decamelize';
-import dispatcher from '../GameDataDispatcher';
 
+import dispatcher from '../GameDataDispatcher';
+import { ConstructionStore } from './stores/index';
 import handlers from './handlers/index';
+import models from './dataModels/index';
 
 /**
  * @type {Dockyard.GameDataHandler}
  */
 class GameDataHandler {
   handlers = T.Map();
+  models = T.Map();
+  stores = T.Set();
 
   /**
    * @constructor
@@ -30,6 +34,8 @@ class GameDataHandler {
       const handlerName = decamelize(handler).toUpperCase();
       this.registerHandler(handlerName, eventName);
     });
+
+    this.stores = this.stores.add(ConstructionStore.storeName, new ConstructionStore(dispatcher));
   }
 
   /**
@@ -61,6 +67,7 @@ class GameDataHandler {
     console.log(' eventRecord => %O', eventRecord);
 
     const handler = this.handlers.get(eventRecord.event);
+    const model = null;
 
     // This can probably be called synchronously.
     // @todo Look in if workers/async work distribution for larger data sets
@@ -69,9 +76,18 @@ class GameDataHandler {
   }
 
   /**
-   * @param Handler
-   * @param {Dockyard.NetworkEvent} eventRecord
-   * @param {Dockyard.Dispatcher} dispatcher
+   * @param {string} eventName
+   * @returns {boolean}
+   * @private
+   */
+  _hasHandler(eventName) {
+    return this.handlers.has(name);
+  }
+
+  /**
+   * @param {!Function} Handler
+   * @param {!Dockyard.NetworkEvent} eventRecord
+   * @param {!Dockyard.Dispatcher} dispatcher
    * @returns {*}
    * @private
    */

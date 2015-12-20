@@ -74,6 +74,14 @@ namespace Dockyard {
     UPDATE_QUEST_LIST
   }
 
+  declare enum Action {
+    CREATE_ITEM,
+    UPDATE_ITEM,
+    DELETE_ITEM,
+
+    UPDATE_PLAYER_STATE
+  }
+
   // Game events
   declare enum GameEvent {
     GET_BASE_DATA,
@@ -98,6 +106,14 @@ namespace Dockyard {
 
   interface GameStateMap {
     state: GameState;
+  }
+
+  module GameAPI {
+    // @payload CRAFT_ITEM
+    interface CraftItem {
+      materialsUsed: Object;
+      item: Object;
+    }
   }
 }
 

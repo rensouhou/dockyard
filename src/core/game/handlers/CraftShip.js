@@ -6,14 +6,22 @@
  * @module
  */
 
+import R from 'ramda';
+
 import BaseHandler from './BaseHandler';
+import Actions from '../constants/Actions';
 
 export default class CraftShip extends BaseHandler {
   handleState() {
-    console.group('CraftShip');
+    console.log('CraftShip');
     console.log('this.method =>', this.method);
 
-    this.dispatchState();
-    console.groupEnd();
+    const { GET, POST } = this.method;
+
+    this.dispatchState(Actions.CREATE_SHIP, {
+      actionType: 'UNKNOWN',
+      eventName: this.eventRecord.event,
+      payload: {}
+    });
   }
 }

@@ -5,10 +5,13 @@
  * @author Anon
  * @module
  */
-import T from 'immutable';
 
-const GetBaseDataModel = T.fromJS({
+import BaseModel from './BaseModel';
 
-});
+class GetBaseDataModel extends BaseModel {
+  constructor(model) {
+    super(model);
+  }
+}
 
 export default GetBaseDataModel;

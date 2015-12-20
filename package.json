@@ -37,6 +37,7 @@
     "lodash": "^3.10.1",
     "preprocessor-loader": "^1.0.5",
     "query-string": "^3.0.0",
+    "ramda": "^0.18.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
     "ts-loader": "^0.7.2",

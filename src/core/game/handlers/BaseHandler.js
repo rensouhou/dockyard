@@ -7,6 +7,8 @@
  * @module src/core/game/handlers/BaseHandler
  */
 
+import invariant from 'invariant';
+
 /**
  * @public
  * @type {Dockyard.BaseHandler}
@@ -26,7 +28,7 @@ export default class BaseHandler {
    * @param {Dockyard.Dispatcher} dispatcher
    */
   constructor(eventRecord, dispatcher) {
-    console.group('BaseHandler');
+    console.log('BaseHandler');
     console.log('└─ eventRecord => %O', eventRecord);
 
     this.eventRecord = eventRecord;
@@ -40,7 +42,6 @@ export default class BaseHandler {
     this.result = null;
 
     this.handleState();
-    console.groupEnd();
   }
 
   /**
@@ -56,20 +57,19 @@ export default class BaseHandler {
    * Dispatch an action to the dispatcher that will update the stores.
    * `this.dispatchState()` must be called whenever the data that is
    * given to stores is ready.
+   *
+   * @param {!string} actionType
+   * @param {!object} payload
    */
-  dispatchState() {
+  dispatchState(actionType, payload) {
+    invariant((actionType && payload), 'Dispatching the state requires both `actionType` and `payload` arguments.');
     console.log('BaseHandler.dispatchState');
     console.log('└─ Dispatcher => %O', this.dispatcher);
 
     this.dispatcher.dispatch({
-      actionType: 'UPDATE_GAME_DATA',
+      actionType: actionType,
       eventName: this.eventRecord.event,
-      payload: {
-        method: {
-          GET: this.GET,
-          POST: this.POST
-        }
-      }
+      payload: payload
     })
   }
 }

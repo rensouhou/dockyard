@@ -9,17 +9,14 @@ import BaseStore from './BaseStore';
 import PlayerProfileStore from './PlayerProfileStore';
 import PlayerDockStore from './PlayerDockStore';
 import ApiDataStore from './ApiDataStore';
+import ConstructionStore from './ConstructionStore';
 
 export {
   BaseStore,
-  PlayerProfileStore,
-  PlayerDockStore,
-  ApiDataStore
+  ConstructionStore
 };
 
 export default {
   BaseStore,
-  PlayerProfileStore,
-  PlayerDockStore,
-  ApiDataStore
+  ConstructionStore
 };

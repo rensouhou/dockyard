@@ -8,6 +8,7 @@ declare namespace kcsapi {
   module api {
     /**
      * @event GET_BASE_DATA
+     * @api /api_port/port
      */
     export interface GetBaseData {
       api_basic: PlayerProfile;
@@ -49,7 +50,38 @@ declare namespace kcsapi {
         api_ship: Array<number>;        // [current, max] number of ships
         api_slotitem: Array<number>;    // [current, max] number of slot items
         api_war: Object;                // sortie success stats
-      }
+      };
+    }
+
+    /**
+     * @event COMPLETE_EXPEDITION
+     * @api /api_req_mission/result
+     */
+    export interface CompleteExpedition {
+      GET: {
+        api_clear_result: number;
+        api_detail: string;               // Expedition description
+        api_get_exp: number;              // HQ exp
+        api_get_exp_lvup: Array<Array<number>>; // Ship experience levels
+        api_get_material: Array<number>;  // Material reward
+        api_get_ship_exp: Array<number>;  // 0-indexed list of experience reward for ships
+        api_maparea_name: string;         // World name
+        api_member_exp: number;           // HQ exp
+        api_member_lv: number;            // HQ level
+        api_quest_level: number;          // Quest level
+        api_quest_name: string;           // Expedition name
+        api_ship_id: Array<number>;       // 1-indexed list of ships used, first item `-1`
+        api_useitem_flag: Array<number>;  // @todo Find out about me
+      };
+
+      POST: {
+        api_deck_id: string;              // fleet number; should be int, but kcapi
+      };
+    }
+
+    export interface GetUsableItems {
+      GET: Array<UsableItem>;
+      POST?: {};
     }
 
     /**
@@ -64,7 +96,25 @@ declare namespace kcsapi {
         api_ship: Ship;
         api_ship_id: number;
         api_slotitem: Array<Object>
-      }
+      };
+    }
+
+    /**
+     * @event RESUPPLY_SHIP
+     * @api /api_req_hokyu/charge
+     */
+    export interface ResupplyShip {
+      GET: {
+        api_material: Array<number>;
+        api_ship: Array<any>;
+        api_use_bou: number;          // bauxite used
+      };
+
+      POST: {
+        api_id_items: string;
+        api_kind: string;
+        api_onslot: string;
+      };
     }
 
     /**
@@ -307,13 +357,19 @@ declare namespace kcsapi {
     api_taisen: Array<number>;
   }
 
-// Remodel done
-// @fixme
+  // Remodel done
+  // @fixme
   interface SlotItem {
     api_id: number;
     api_level: number;
     api_locked: number;
     api_slotitem_id: number;
+  }
+
+  interface UsableItem {
+    api_category: number;
+    api_count: number;
+    api_description: string|Array<string>;
   }
 }
 

@@ -15,11 +15,9 @@ import NetworkRequestHandler from '../core/NetworkRequestHandler';
 import { GameDataHandler } from '../core/game/index';
 
 import AddonEvent from '../enums/addonEvents';
-import ApiDataStore from '../core/game/stores/ApiDataStore';
 import dispatcher from '../core/GameDataDispatcher';
 
 let ApiDataHandler = new GameDataHandler();
-let apiDataStore = new ApiDataStore(dispatcher);
 
 chrome.runtime.onConnect.addListener(
   /**

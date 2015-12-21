@@ -40,6 +40,8 @@
     "ramda": "^0.18.0",
     "react": "^0.14.3",
     "react-dom": "^0.14.3",
+    "redux": "^3.0.5",
+    "redux-devtools": "^3.0.0",
     "ts-loader": "^0.7.2",
     "uppercamelcase": "^1.1.0",
     "webpack": "^1.12.3"

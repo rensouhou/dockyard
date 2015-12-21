@@ -79,7 +79,8 @@ namespace Dockyard {
     UPDATE_ITEM,
     DELETE_ITEM,
 
-    UPDATE_PLAYER_STATE
+    UPDATE_PLAYER_STATE,
+    UPDATE_QUEST_LIST
   }
 
   // Game events

@@ -12,8 +12,13 @@ import Actions from '../constants/Actions';
 export default class ConstructionStore extends MapStore {
   static storeName = 'ConstructionStore';
 
-  constructor(dispatcher) {
+  items = T.Set();
+  ships = T.Set();
+
+  constructor(dispatcher, items = [], ships = []) {
     super(dispatcher);
+    this.items = T.List(items);
+    this.ships = T.List(ships);
   }
 
   reduce(state, action) {
@@ -24,6 +29,8 @@ export default class ConstructionStore extends MapStore {
       // Craft
       case Actions.CREATE_ITEM:
         console.log(this.getState().toJS());
+        let i = action.payload;
+        this.items = this.items.push(i);
         break;
 
       // Destroy?
@@ -31,6 +38,14 @@ export default class ConstructionStore extends MapStore {
 
       // Item upgrades?
       case Actions.UPDATE_ITEM:
+        break;
+
+      case Actions.CREATE_SHIP:
+        break;
+
+      case Actions.CREATE_SHIP_FINISH:
+        break;
+
       default:
         break;
     }

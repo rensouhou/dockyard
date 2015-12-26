@@ -11,7 +11,7 @@ import uppercamelcase from 'uppercamelcase';
 import decamelize from 'decamelize';
 
 import dispatcher from '../GameDataDispatcher';
-import { ConstructionStore } from './stores/index';
+//import { ConstructionStore } from './stores/index';
 import handlers from './handlers/index';
 import models from './dataModels/index';
 
@@ -35,7 +35,7 @@ class GameDataHandler {
       this.registerHandler(handlerName, eventName);
     });
 
-    this.stores = this.stores.add(ConstructionStore.storeName, new ConstructionStore(dispatcher));
+    //this.stores = this.stores.add(ConstructionStore.storeName, new ConstructionStore(dispatcher));
   }
 
   /**

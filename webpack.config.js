@@ -40,7 +40,8 @@ let loaders = [
     loader: 'babel',
     query: {
       cacheDirectory: true,
-      presets: ['es2015', 'react', 'stage-1']
+      presets: ['es2015', 'react', 'stage-1'],
+      plugins: ['transform-object-assign']
     }
   },
   {

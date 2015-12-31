@@ -6,6 +6,19 @@
 
 declare namespace kcsapi {
   module api {
+    export interface InitializeGame {
+      api_mst_bgm: any;
+      any_mst_const: any;
+      api_mst_equip_exslot: any;
+      api_mst_furniture: mst.Furniture;
+      api_mst_furnituregraph: any;
+      api_mst_item_shop: any;
+      api_mst_maparea: mst.MapArea;
+      api_mst_mapbgm: mst.MapBGM;
+      api_mst_ship: mst.Ship;
+      api_mst_stype: mst.ShipType;
+    }
+
     /**
      * @event GET_BASE_DATA
      * @api /api_port/port
@@ -370,6 +383,112 @@ declare namespace kcsapi {
     api_category: number;
     api_count: number;
     api_description: string|Array<string>;
+  }
+
+  /**
+   * ## Master API data
+   */
+  module mst {
+    /**
+     * ### Ships
+     */
+
+    /**
+     * @apidata `api_mst_ship`
+     */
+    interface Ship {
+      api_afterbull: number;
+      api_afterfuel: number;
+      api_afterlv: number;
+      api_aftershipid: string;
+      api_backs: number;
+      api_broken: Array<number>;    // @fixme Material type
+      api_buildtime: number;
+      api_bull_max: number;
+      api_fuel_max: number;
+      api_getmes: string;           // "GET"-message
+      api_houg: Array<number>;
+      api_id: number;
+      api_leng: number;
+      api_luck: Array<number>;
+      api_maxeq: Array<number>;
+      api_name: string;
+      api_powup: Array<number>;
+      api_raig: Array<number>;
+      api_slot_num: number;
+      api_soku: number;
+      api_sortno: number;
+      api_souk: Array<number>;
+
+      /** The {@link ShipType#api_sortno} for the ship type */
+      api_stype: number;
+
+      /** Endurance */
+      api_taik: Array<number>;
+
+      /** Anti-air */
+      api_tyku: Array<number>;
+
+      /** Does the ship have extra voices? */
+      api_voicef: number;
+
+      /** Name reading */
+      api_yomi: string;
+    }
+
+    /**
+     * @apidata `api_msg_stype`
+     */
+    interface ShipType {
+      api_equip_type: Array<number>;
+      api_id: number;
+      api_kcnt: number;
+      api_name: string;
+      api_scnt: number;
+      api_sortno: number;
+    }
+
+    // Slot/Equipment
+    /**
+     * SlotItem equipment type
+     * @apidata `api_mst_slotitem_equiptype`
+     */
+    interface SlotItemEquipType {
+      api_id: number;
+      api_name: string;
+      api_show_flg: number;
+    }
+
+    // Maps
+    interface MapArea {
+      api_id: number;
+      api_name: string;
+      api_type: number;
+    }
+
+    // Misc
+
+    // Furniture
+    interface Furniture {
+      api_description: string;
+      api_id: number;
+      api_no: number;
+      api_price: number;
+      api_rarity: number;
+      api_saleflg: number;
+      api_season: number;
+      api_title: string;
+      api_type: number;
+    }
+
+    // BGM
+    interface MapBGM {
+      api_boss_bgm: Array<number>;
+      api_id: number;
+      api_map_bgm: Array<number>;
+      api_maparea_id: number;
+      api_no: number;
+    }
   }
 }
 

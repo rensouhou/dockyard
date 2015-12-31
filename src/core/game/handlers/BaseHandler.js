@@ -8,6 +8,7 @@
  */
 
 import invariant from 'invariant';
+import { isFSA } from 'flux-standard-action';
 
 /**
  * @public
@@ -28,9 +29,6 @@ export default class BaseHandler {
    * @param {Dockyard.Dispatcher} dispatcher
    */
   constructor(eventRecord, dispatcher) {
-    console.log('BaseHandler');
-    console.log('└─ eventRecord => %O', eventRecord);
-
     this.eventRecord = eventRecord;
     this.eventName = eventRecord.event;
     this.dispatcher = dispatcher;
@@ -58,19 +56,17 @@ export default class BaseHandler {
    * `this.dispatchState()` must be called whenever the data that is
    * given to stores is ready.
    *
-   * @param {!string} actionType
-   * @param {!object} payload
+   * `action` must conform to the `flux-standard-action` specification.
+   * @see {@link https://github.com/acdlite/flux-standard-action}
+   *
+   * @param {!object} action
    */
-  dispatchState(actionType, payload) {
-    invariant((actionType && payload), 'Dispatching the state requires both `actionType` and `payload` arguments.');
+  dispatchState(action) {
+    invariant((action && isFSA(action)), 'Dispatching the state requires a valid action object.');
     console.log('BaseHandler.dispatchState');
-    console.log('└─ Dispatcher => %O', this.dispatcher);
+    console.log('└─ action\t=> %o', action);
 
-    this.dispatcher.dispatch({
-      actionType: actionType,
-      eventName: this.eventRecord.event,
-      payload: payload
-    })
+    this.dispatcher.dispatch(action)
   }
 }
 

@@ -6,14 +6,15 @@
  * @module src/core/game/GameDataHandler
  */
 import T from 'immutable';
+import R from 'ramda';
 import invariant from 'invariant';
 import uppercamelcase from 'uppercamelcase';
 import decamelize from 'decamelize';
 
 import dispatcher from '../GameDataDispatcher';
-//import { ConstructionStore } from './stores/index';
-import handlers from './handlers/index';
-import models from './dataModels/index';
+import handlers from './handlers';
+import models from './dataModels';
+import * as Stores from './stores';
 
 /**
  * @type {Dockyard.GameDataHandler}
@@ -35,7 +36,10 @@ class GameDataHandler {
       this.registerHandler(handlerName, eventName);
     });
 
-    //this.stores = this.stores.add(ConstructionStore.storeName, new ConstructionStore(dispatcher));
+    Object.keys(Stores).forEach((storeName) => {
+      let Store = Stores[storeName];
+      this.stores = this.stores.add(Store.storeName, new Store(dispatcher));
+    });
   }
 
   /**

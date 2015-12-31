@@ -15,18 +15,32 @@ import Actions from '../constants/Actions';
  */
 class GetQuestList extends BaseHandler {
   handleState() {
-    console.log('GetQuestList.handleState()');
-    console.log('this.method.GET\t\t=>', this.method.GET);
-    console.log('this.method.POST\t=>', this.method.POST);
+    const { GET, POST } = this.method;
 
-    let camelCase = (k) => k.toUpperCase();
-    let transformKeys = R.map(camelCase);
-    let k = R.compose(transformKeys, R.keys);
+    let getQuest = (q) => ([q.api_no, {
+      title: q.api_title,
+      detail: q.api_detail,
+      category: q.api_category,
+      type: q.api_type,
+      reward: q.api_get_material,
+      state: q.api_state,
+      inProgress: q.api_progress_flag === 1
+    }]);
+
+    let isObject = (o) => typeof o === 'object';
+    let objects = R.filter(isObject);
+    let f = R.compose(R.fromPairs, R.map(getQuest), objects);
+    let quests = f(GET.api_list);
 
     // Dispatch the action found in `BaseHandler`.
-    this.dispatchState(Actions.UPDATE_QUEST_LIST, {
+    let action = {
+      type: Actions.UPDATE_QUEST_LIST,
+      payload: {
+        quests: quests
+      }
+    };
 
-    });
+    this.dispatchState(action);
   }
 }
 

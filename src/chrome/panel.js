@@ -9,9 +9,9 @@
 import T from 'immutable';
 
 import { ExtensionEvent } from '../core/game/constants';
-import config from '../config/extension';
+import { extension } from '../config';
 
-const port = chrome.runtime.connect({ name: config.channelName });
+const port = chrome.runtime.connect({ name: extension.channelName });
 
 try {
   chrome.devtools.network.onRequestFinished.addListener(
@@ -24,7 +24,7 @@ try {
         let response = T.fromJS(chromeNetworkRequest.response);
         let requestHeaders = request.get('headers');
         let responseHeaders = response.get('headers');
-        let acceptedContentTypes = T.List(config.acceptedContentTypes);
+        let acceptedContentTypes = T.List(extension.acceptedContentTypes);
 
         let contentType = responseHeaders.find((it) => it.get('name') === 'Content-Type');
 

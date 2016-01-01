@@ -9,9 +9,11 @@
 import Actions from './Actions';
 import ActionTypes from './ActionTypes';
 import GameState from './GameState';
+import ExtensionEvent from './extension-events';
 
 export {
   Actions,
   ActionTypes,
-  GameState
+  GameState,
+  ExtensionEvent
 };

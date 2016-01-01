@@ -13,76 +13,76 @@ import R from 'ramda';
 
 /**
  * Turn a flat array of numbers into a material object.
- * Does not take into account anything besides basic resources.
- * @param {Array<number>} m
+ * Does not take into account anything besides the four basic resources.
+ * @param {Array<number>} list
  * @return {object}
  */
-export function materialTransform (m) {
+export function materialTransform (list) {
   let k = ['fuel', 'ammo', 'steel', 'bauxite'];
   let c = R.compose(R.fromPairs, R.zip);
 
-  return c(k, m);
+  return c(k, list);
 }
 
 /**
  *
- * @param {kcsapi.mst.ShipType} st
+ * @param {kcsapi.mst.ShipType} obj
  * @returns {object}
  */
-export function shipTypeTransform(st) {
+export function shipTypeTransform(obj) {
   return {
-    equippableTypes: st.api_equip_type,
-    id: st.api_id,
-    name: st.api_name,
-    sortNo: st.api_sortno,
+    equippableTypes: obj.api_equip_type,
+    id: obj.api_id,
+    name: obj.api_name,
+    sortNo: obj.api_sortno,
     _unknown: {
-      kcnt: st.api_kcnt,
-      scnt: st.api_scnt
+      kcnt: obj.api_kcnt,
+      scnt: obj.api_scnt
     }
   };
 }
 
 /**
  * Transform a ship from the API data to a sane object
- * @param {kcsapi.mst.Ship} s
+ * @param {kcsapi.mst.Ship} o
  */
-export function shipTransform (s) {
+export function shipTransform (o) {
   return {
     remodel: {
-      level: s.api_afterlv,
-      id: s.api_aftershipid,
+      level: o.api_afterlv,
+      id: o.api_aftershipid,
       capacity: {
-        fuel: s.api_afterfuel,
-        ammo: s.api_afterbull
+        fuel: o.api_afterfuel,
+        ammo: o.api_afterbull
       }
     },
-    scrap: materialTransform(s.api_broken),
-    rarity: s.api_backs,
-    buildTime: s.api_buildtime,
+    scrap: materialTransform(o.api_broken),
+    rarity: o.api_backs,
+    buildTime: o.api_buildtime,
     capacity: {
-      ammo: s.api_bull_max,
-      fuel: s.api_fuel_max
+      ammo: o.api_bull_max,
+      fuel: o.api_fuel_max
     },
-    message: s.api_getmes,
+    message: o.api_getmes,
     stats: {
-      firePower: s.api_houg,
-      range: s.api_leng,
-      luck: s.api_luck,
-      torpedo: s.api_raig,
-      speed: s.api_soku,
-      endurance: s.api_taik,
-      antiAir: s.api_tyku
+      firePower: o.api_houg,
+      range: o.api_leng,
+      luck: o.api_luck,
+      torpedo: o.api_raig,
+      speed: o.api_soku,
+      endurance: o.api_taik,
+      antiAir: o.api_tyku
     },
-    id: s.api_id,
+    id: o.api_id,
     slot: {
-      count: s.api_slot_num,
-      planeCapacity: s.api_maxeq
+      count: o.api_slot_num,
+      planeCapacity: o.api_maxeq
     },
-    name: s.api_name,
-    remodelGain: s.api_powup,
-    shipType: s.api_stype,
-    shipExtraVoices: s.api_voicef,
-    nameReading: s.api_yomi
+    name: o.api_name,
+    remodelGain: o.api_powup,
+    shipType: o.api_stype,
+    shipExtraVoices: o.api_voicef,
+    nameReading: o.api_yomi
   };
 }
 

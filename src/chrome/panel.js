@@ -3,13 +3,13 @@
  *
  *
  * @since 0.1.0
- * @version 0.1.0
+ * @version 0.1.1
  * @module src/chrome/panel
  */
 import T from 'immutable';
 
+import { ExtensionEvent } from '../core/game/constants';
 import config from '../config/extension';
-import AddonEvent from '../enums/addonEvents';
 
 const port = chrome.runtime.connect({ name: config.channelName });
 
@@ -30,7 +30,7 @@ try {
 
         if (contentType && contentType.size > 0 && acceptedContentTypes.includes(contentType.get('value'))) {
           chromeNetworkRequest.getContent((content) => {
-            port.postMessage({ event: AddonEvent.API_DATA_RECEIVED, chromeNetworkRequest, content });
+            port.postMessage({ event: ExtensionEvent.API_DATA_RECEIVED, chromeNetworkRequest, content });
           });
         }
       }

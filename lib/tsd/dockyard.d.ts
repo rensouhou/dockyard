@@ -58,6 +58,12 @@ namespace Dockyard {
     dispatchState(actionType?: ActionType): void;
   }
 
+  enum CoreEvent {
+    API_DATA_RECEIVED,
+    REQUEST_CONTENT_PARSE,
+    REQUEST_CONTENT_PARSE_ERROR
+  }
+
   // Dispatcher actions
   enum ActionType {
     UPDATE_API_DATA,

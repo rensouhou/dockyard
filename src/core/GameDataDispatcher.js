@@ -1,9 +1,9 @@
 /**
  * @overview
  *
- * @since 0.0.0
- * @author Anon
- * @module
+ * @since 0.1.0
+ * @author Stefan Rimaila <stefan@rimaila.fi>
+ * @module GameDataDispatcher
  */
 import { Dispatcher } from 'flux';
 

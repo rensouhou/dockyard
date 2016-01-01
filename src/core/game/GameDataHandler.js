@@ -5,13 +5,17 @@
  * @author Stefan Rimaila <stefan@rimaila.fi>
  * @module src/core/game/GameDataHandler
  */
+import _ from 'lodash';
 import T from 'immutable';
 import R from 'ramda';
 import invariant from 'invariant';
 import uppercamelcase from 'uppercamelcase';
 import decamelize from 'decamelize';
 
+import NetworkRequestHandler from '../NetworkRequestHandler';
 import dispatcher from '../GameDataDispatcher';
+import AddonEvent from '../../enums/addonEvents';
+
 import handlers from './handlers';
 import models from './dataModels';
 import * as Stores from './stores';
@@ -19,16 +23,17 @@ import * as Stores from './stores';
 /**
  * @type {Dockyard.GameDataHandler}
  */
-class GameDataHandler {
+export default class GameDataHandler {
   handlers = T.Map();
   models = T.Map();
   stores = T.Set();
 
   /**
    * @constructor
+   * @returns {function} Returns listener function for `chrome.runtime`
    */
   constructor() {
-    console.info('New GameDataHandler');
+    console.info(`Create new ${this.constructor.name}`);
 
     // Take care for all the default handlers
     T.Map(handlers).forEach((eventName, handler) => {
@@ -40,6 +45,46 @@ class GameDataHandler {
       let Store = Stores[storeName];
       this.stores = this.stores.add(Store.storeName, new Store(dispatcher));
     });
+
+    return this.listenerFn.bind(this);
+  }
+
+  /**
+   * The primary listener function that will be used in the
+   * @param {chrome.runtime.Port} port
+   * @returns {Function}
+   */
+  listenerFn(port) {
+    console.log('Added listener for channel %s', port.name);
+    port.onMessage.addListener(this.messageListenerFn.bind(this));
+  }
+
+  /**
+   * {@link chrome.runtime.Port.onMessage} listener function
+   * @param {Object} msg
+   */
+  messageListenerFn(msg) {
+    if (_.isArray(msg)) {
+      console.log.apply(console, ['debug =>'].concat(msg));
+    }
+
+    if (msg.event && msg.event === AddonEvent.API_DATA_RECEIVED) {
+      const { chromeNetworkRequest, content } = msg;
+      const { request, response } = chromeNetworkRequest;
+      const timestamp = +(new Date());
+
+      let RequestHandler = new NetworkRequestHandler({ timestamp, request, response, content });
+      let resultRecord = RequestHandler.getData();
+
+      console.group('Event => %s', resultRecord.event);
+      console.info('path\t\t=> %s', resultRecord.path);
+      console.info('timestamp\t=> %s', timestamp);
+      console.info('GET\t\t\t=> %O', resultRecord.method.GET);
+      console.info('POST\t\t=> %O', resultRecord.method.POST);
+      console.groupEnd();
+
+      this.handleEvent(resultRecord, dispatcher);
+    }
   }
 
   /**
@@ -101,5 +146,3 @@ class GameDataHandler {
     return new Handler(eventRecord, dispatcher);
   }
 }
-
-export default GameDataHandler;

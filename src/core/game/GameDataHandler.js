@@ -19,6 +19,7 @@ import AddonEvent from '../../enums/addonEvents';
 import handlers from './handlers';
 import models from './dataModels';
 import * as Stores from './stores';
+import { ActionHandler } from '../../../runtime/firebase';
 
 /**
  * @type {Dockyard.GameDataHandler}
@@ -30,12 +31,12 @@ export default class GameDataHandler {
 
   /**
    * @constructor
+   * @param {object} opts
    * @returns {function} Returns listener function for `chrome.runtime`
    */
-  constructor() {
+  constructor(opts) {
     console.info(`Create new ${this.constructor.name}`);
 
-    // Take care for all the default handlers
     T.Map(handlers).forEach((eventName, handler) => {
       const handlerName = decamelize(handler).toUpperCase();
       this.registerHandler(handlerName, eventName);
@@ -45,6 +46,8 @@ export default class GameDataHandler {
       let Store = Stores[storeName];
       this.stores = this.stores.add(Store.storeName, new Store(dispatcher));
     });
+
+    let actionHandler = dispatcher.register(ActionHandler.handlerFn);
 
     return this.listenerFn.bind(this);
   }
@@ -113,24 +116,18 @@ export default class GameDataHandler {
       return;
     }
 
-    console.log(`Calling \`${eventRecord.event}\` handler.`);
-    console.log(' eventRecord => %O', eventRecord);
-
-    const handler = this.handlers.get(eventRecord.event);
-    const model = null;
-
     // This can probably be called synchronously.
     // @todo Look in if workers/async work distribution for larger data sets
     // @todo Also, move this into its own dispatcher _at some point_
-    this._createNewHandlerInstance(handler, eventRecord, dispatcher);
+    this._createNewHandlerInstance(this.handlers.get(eventRecord.event), eventRecord, dispatcher);
   }
 
   /**
-   * @param {string} eventName
+   * @param {string} name
    * @returns {boolean}
    * @private
    */
-  _hasHandler(eventName) {
+  _hasHandler(name) {
     return this.handlers.has(name);
   }
 

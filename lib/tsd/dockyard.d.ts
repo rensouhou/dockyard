@@ -43,10 +43,12 @@ namespace Dockyard {
   }
 
   interface GameDataHandler {
-    new(): void;
+    new(opts?: Object): Function;
 
     registerHandler(event: string, handler: Function): void;
     handleEvent(event: NetworkEvent): void;
+    listenerFn(port: chrome.runtime.Port): Function;
+    messageListenerFn(msg: Object): void;
   }
 
   interface HandledEvent {

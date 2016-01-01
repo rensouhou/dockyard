@@ -8,7 +8,7 @@
 import { Dispatcher } from 'flux';
 
 /**
- * @type {Dockyard.GameDataDispatcher}
+ * @type {Dispatcher}
  */
 const dispatcher = new Dispatcher();
 

@@ -1,8 +1,9 @@
 namespace Dockyard {
+  import Record = Immutable.Record;
   import MapStore = FluxUtils.MapStore;
   import Dispatcher = Flux.Dispatcher;
 
-  declare function GameDataHandlerFn(eventRecord: NetworkEvent, dispatcher?: GameDataDispatcherActions): void;
+  function GameDataHandlerFn(eventRecord: NetworkEvent, dispatcher?: Action): void;
 
   interface NetworkEventMsg {
     event: string;
@@ -10,7 +11,7 @@ namespace Dockyard {
     content: string;
   }
 
-  interface NetworkEvent extends Immutable.Record.Class {
+  interface NetworkEvent extends Record.Class {
     path?: string;
     event: string;
     method: Object;
@@ -20,20 +21,12 @@ namespace Dockyard {
     dispatch(action): void;
   }
 
-  interface Mongleable {
-    gotData: any;
-    postData: any;
-  }
-
   /**
    * Game Data Dispatcher
    */
-  enum GameDataDispatcherActions {}
-
   interface GameDataDispatcher {
-    actionType: GameDataDispatcherActions;
-    eventType: string;
-    payload?: any;
+    action: Action;
+    payload?: Object;
   }
 
   /**
@@ -41,7 +34,6 @@ namespace Dockyard {
    */
   interface NetworkRequestHandler {
     new(handler: NetworkEvent): void;
-
     getData(): NetworkEvent;
   }
 
@@ -67,30 +59,35 @@ namespace Dockyard {
   }
 
   // Dispatcher actions
-  declare enum ActionType {
+  enum ActionType {
     UPDATE_API_DATA,
     UPDATE_GAME_DATA,
     UPDATE_PLAYER_PROFILE,
     UPDATE_QUEST_LIST
   }
 
-  declare enum Action {
+  enum Action {
     CREATE_ITEM,
     UPDATE_ITEM,
     DELETE_ITEM,
-
+    CREATE_SHIP,
+    CREATE_SHIP_FINISH,
+    UPDATE_SHIP,
+    DELETE_SHIP,
     UPDATE_PLAYER_STATE,
-    UPDATE_QUEST_LIST
+    UPDATE_BASE_DATA,
+    UPDATE_QUEST_LIST,
+    UPDATE_GAME_STATE
   }
 
   // Game events
-  declare enum GameEvent {
+  enum GameEvent {
     GET_BASE_DATA,
     GET_PROFILE_DATA
   }
 
   // Game states
-  declare enum GameState {
+  enum GameState {
     IDLE,
     IN_SORTIE,
     IN_PRACTICE,
@@ -102,7 +99,6 @@ namespace Dockyard {
 
   interface GameStateStore extends MapStore {
     new(dispatcher: Dispatcher, actions?: any);
-
   }
 
   interface GameStateMap {

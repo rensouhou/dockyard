@@ -76,6 +76,7 @@ export default class GameDataHandler {
       let RequestHandler = new NetworkRequestHandler({ timestamp, request, response, content });
       let resultRecord = RequestHandler.getData();
 
+      // Just throw it in there for now
       console.group('Event => %s', resultRecord.event);
       console.info('path\t\t=> %s', resultRecord.path);
       console.info('timestamp\t=> %s', timestamp);

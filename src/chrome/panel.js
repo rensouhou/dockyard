@@ -1,12 +1,14 @@
 /**
  * @overview
  *
- *
  * @since 0.1.0
  * @version 0.1.1
  * @module src/chrome/panel
+ *
+ * @fixme Externalize this handler into its own class
  */
 import T from 'immutable';
+import invariant from 'invariant';
 
 import { ExtensionEvent } from '../core/game/constants';
 import { extension } from '../config';
@@ -14,11 +16,13 @@ import { extension } from '../config';
 const port = chrome.runtime.connect({ name: extension.channelName });
 
 try {
+
   chrome.devtools.network.onRequestFinished.addListener(
     /**
-     * @param {NetworkRequest} chromeNetworkRequest
+     * @type {chrome.devtools.network.onRequestFinished}
+     * @param {Dockyard.Request} chromeNetworkRequest
      */
-    (chromeNetworkRequest) => {
+    function (chromeNetworkRequest) {
       try {
         let request = T.fromJS(chromeNetworkRequest.request);
         let response = T.fromJS(chromeNetworkRequest.response);
@@ -45,7 +49,16 @@ try {
   })
 }
 catch (e) {
-  port.postMessage(['error', e]);
+  let error = new Error();
+
+  error.name = 'Error in Panel';
+  error.framesToPop = 1;
+  error.message = e.message;
+
+  port.postMessage([error]);
 }
 
+/**
+ * Front-end starts here some day
+ */
 require('../app/application');

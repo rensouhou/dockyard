@@ -5,6 +5,11 @@ namespace Dockyard {
 
   function GameDataHandlerFn(eventRecord: NetworkEvent, dispatcher?: Action): void;
 
+  interface Request extends chrome.devtools.network.Request {
+    request: Object;
+    response: Object;
+  }
+
   interface NetworkEventMsg {
     event: string;
     requestResult: Object;

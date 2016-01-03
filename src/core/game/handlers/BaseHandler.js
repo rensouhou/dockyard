@@ -48,7 +48,7 @@ export default class BaseHandler {
    * @abstract
    */
   handleState() {
-    console.warn('`%s` event handler\'s `handleState` method has not been overridden', this.eventName);
+    invariant(null, `${this.eventName} event handler's \`handleState\` method has not been overridden.`);
   }
 
   /**
@@ -63,8 +63,7 @@ export default class BaseHandler {
    */
   dispatchState(action) {
     invariant((action && isFSA(action)), 'Dispatching the state requires a valid action object.');
-    console.log('BaseHandler.dispatchState');
-    console.log('└─ action\t=> %o', action);
+    console.log('Dispatching action %s', action.type);
 
     this.dispatcher.dispatch(action)
   }

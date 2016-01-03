@@ -16,10 +16,15 @@ namespace Dockyard {
     content: string;
   }
 
+  interface MethodObject {
+    GET?: Object;
+    POST?: Object;
+  }
+
   interface NetworkEvent extends Record.Class {
     path?: string;
     event: string;
-    method: Object;
+    method: MethodObject;
   }
 
   interface Dispatcher {
@@ -43,12 +48,16 @@ namespace Dockyard {
   }
 
   interface GameDataHandler {
-    new(opts?: Object): Function;
+    new(opts?: GameDataHandlerOpts): Function;
 
     registerHandler(event: string, handler: Function): void;
     handleEvent(event: NetworkEvent): void;
     listenerFn(port: chrome.runtime.Port): Function;
     messageListenerFn(msg: Object): void;
+  }
+
+  interface GameDataHandlerOpts {
+    dataAdapter: Function;
   }
 
   interface HandledEvent {
@@ -88,6 +97,7 @@ namespace Dockyard {
     UPDATE_SHIP,
     DELETE_SHIP,
     UPDATE_PLAYER_STATE,
+    CREATE_BASE_DATA,
     UPDATE_BASE_DATA,
     UPDATE_QUEST_LIST,
     UPDATE_GAME_STATE
@@ -123,6 +133,16 @@ namespace Dockyard {
     interface CraftItem {
       materialsUsed: Object;
       item: Object;
+    }
+  }
+
+  module Stores {
+    interface PlayerState {
+      profile: Object;
+      materials: Object;
+      fleets: Array<Object>;
+      ships: Object;
+      shipTypes: Object;
     }
   }
 }

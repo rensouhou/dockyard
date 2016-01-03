@@ -2,8 +2,12 @@
  * @overview
  *
  * @since 0.1.0
+ * @version 0.1.1
  * @author Stefan Rimaila <stefan@rimaila.fi>
- * @module src/core/game/GameDataHandler
+ * @module core/game/GameDataHandler
+ *
+ * @todo Data adapters; use Firebase, IndexedDB, etc.
+ * @todo Only listen to messages from a defined namespace
  */
 import _ from 'lodash';
 import T from 'immutable';
@@ -16,7 +20,7 @@ import NetworkRequestHandler from '../NetworkRequestHandler';
 import dispatcher from '../GameDataDispatcher';
 import AddonEvent from '../../enums/addonEvents';
 
-import handlers from './handlers';
+import * as handlers from './handlers';
 import models from './dataModels';
 import * as Stores from './stores';
 import { ActionHandler } from '../../../runtime/firebase';
@@ -28,6 +32,7 @@ export default class GameDataHandler {
   handlers = T.Map();
   models = T.Map();
   stores = T.Set();
+  dataAdapter = null;
 
   /**
    * @constructor
@@ -35,18 +40,25 @@ export default class GameDataHandler {
    * @returns {function} Returns listener function for `chrome.runtime`
    */
   constructor(opts) {
-    console.info(`Create new ${this.constructor.name}`);
+    console.group(`Create new ${this.constructor.name}`);
 
+    console.group('Register handlers');
     T.Map(handlers).forEach((eventName, handler) => {
       const handlerName = decamelize(handler).toUpperCase();
       this.registerHandler(handlerName, eventName);
     });
+    console.groupEnd();
 
+    console.group('Instantiate stores');
     Object.keys(Stores).forEach((storeName) => {
       let Store = Stores[storeName];
       this.stores = this.stores.add(Store.storeName, new Store(dispatcher));
     });
+    console.groupEnd();
 
+    console.groupEnd();
+
+    // "Middleware"
     let actionHandler = dispatcher.register(ActionHandler.handlerFn);
 
     return this.listenerFn.bind(this);

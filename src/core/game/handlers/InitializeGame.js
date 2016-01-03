@@ -19,8 +19,8 @@ export default class InitializeGame extends BaseHandler {
     /** @type {kcsapi.api.InitializeGame} */
     const GET = this.method.GET;
 
-    const ships = this._parseShips(GET.api_mst_ship);
-    const shipTypes = R.map(shipTypeTransform, GET.api_mst_stype);
+    const ships = R.fromPairs(R.map(shipTransform, GET.api_mst_ship));
+    const shipTypes = R.fromPairs(R.map(shipTypeTransform, GET.api_mst_stype));
 
     let action = {
       type: Action.UPDATE_BASE_DATA,
@@ -30,13 +30,5 @@ export default class InitializeGame extends BaseHandler {
     };
 
     this.dispatchState(action);
-  }
-
-  /**
-   * @param {Array<kcsapi.mst.Ship>} list
-   * @private
-   */
-  _parseShips(list) {
-    return R.map(shipTransform, list);
   }
 }

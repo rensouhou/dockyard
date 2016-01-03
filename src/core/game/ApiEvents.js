@@ -3,7 +3,7 @@
  *
  * @since 0.1.0
  * @author Stefan Rimaila <stefan@rimaila.fi>
- * @module src/core/game/ApiEvents
+ * @module core/game/ApiEvents
  */
 import T from 'immutable';
 
@@ -40,9 +40,9 @@ export default T.Map({
   'req_member/payitemuse': 'USE_PAID_ITEM',
   'req_member/get_incentive': 'GET_INCENTIVE',
 
+  'req_practice/battle_result': 'FINISHED_PRACTICE',
   'req_practice/battle': 'START_PVP_BATTLE',
   'req_practice/midnight_battle': 'START_PVP_NIGHT_BATTLE',
-  'req_practice/battle_result': 'FINISHED_PRACTICE',
   'req_hensei/combined': 'FLEET_COMBINED',
   'req_combined_battle/battle_water': 'COMBINED_BATTLE_WATER_PHASE',
   'req_combined_battle/battleresult': 'FINISHED_COMBINED_FLEET',

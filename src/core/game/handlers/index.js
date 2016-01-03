@@ -6,10 +6,23 @@
  * @module src/core/game/handlers/index
  *
  * NOTE:
- *  All handlers should match the handlers found in {@link src/core/game/ApiEvents} as
+ *  All handlers should match the handlers found in {@link core/game/ApiEvents} as
  *  de-camelcased versions, e.g. `GET_BASE_DATA` turns into `GetBaseData`.
  */
-module.exports.GetQuestList = require('./GetQuestList');
-module.exports.CraftItem = require('./CraftItem').default;
-module.exports.CraftShip = require('./CraftShip').default;
-module.exports.StartSortie = require('./StartSortie').default;
+import GetBaseData from './GetBaseData';
+import GetQuestList from './GetQuestList';
+import GetMaterial from './GetMaterial';
+import CraftItem from './CraftItem';
+import CraftShip from './CraftShip';
+import StartSortie from './StartSortie';
+import InitializeGame from './InitializeGame';
+
+export {
+  GetBaseData,
+  GetQuestList,
+  GetMaterial,
+  CraftItem,
+  CraftShip,
+  StartSortie,
+  InitializeGame
+}

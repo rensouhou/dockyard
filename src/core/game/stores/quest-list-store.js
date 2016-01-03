@@ -11,8 +11,6 @@ import { MapStore } from 'flux/utils';
 import Action from '../constants/Actions';
 
 const initialState = {
-  // Just for testing
-  initialState: true,
   quests: {}
 };
 
@@ -34,10 +32,10 @@ export default class QuestListStore extends MapStore {
    * @returns {*|TState|T}
    */
   reduce(state, action) {
+    let currentState = state;
+
     switch (action.type) {
       case Action.UPDATE_QUEST_LIST:
-        let currentState = state;
-
         if (!currentState.has('quests')) {
           currentState = currentState.set('quests', T.Map());
         }

@@ -10,7 +10,7 @@ import T from 'immutable';
 import { MapStore } from 'flux/utils';
 import Action from '../constants/Actions';
 
-const initialState = {
+const _initialState = {
   furniture: [],
   ships: [],
   shipTypes: [],
@@ -21,13 +21,13 @@ const initialState = {
 export default class GameDataStore extends MapStore {
   static storeName = 'GameDataStore';
 
-  constructor(dispatcher) {
+  constructor(dispatcher, initialState) {
     super(dispatcher);
     console.info(`${GameDataStore.storeName}#constructor`);
   }
 
   getInitialState() {
-    return T.fromJS(initialState);
+    return T.fromJS(_initialState);
   }
 
   reduce(state, action) {

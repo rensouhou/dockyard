@@ -9,9 +9,11 @@
 import GameDataStore from './game-data-store';
 import GameStateStore from './game-state-store';
 import QuestListStore from './quest-list-store';
+import PlayerStateStore from './player-state-store';
 
 export {
   GameDataStore,
   GameStateStore,
-  QuestListStore
+  QuestListStore,
+  PlayerStateStore
 };

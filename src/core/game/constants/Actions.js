@@ -5,11 +5,7 @@
  * @author Stefan Rimaila <stefan@rimaila.fi>
  */
 
-import keymirror from 'keymirror';
-
-/**
- * @type {Dockyard.Action}
- */
+/** @type {Dockyard.Action} */
 export default {
   // Construction
   CREATE_ITEM: 'CREATE_ITEM',

@@ -2,6 +2,7 @@
  * Kancolle API Definition File
  *
  * @since 0.1.0
+ * @version 0.1.1
  */
 
 declare namespace kcsapi {
@@ -24,16 +25,23 @@ declare namespace kcsapi {
      * @api /api_port/port
      */
     export interface GetBaseData {
-      api_basic: PlayerProfile;
-      api_combined_flag: number;
-      api_deck_port: Array<Fleet>;
-      api_event_object?: EventObject;
-      api_log: ApiLog;
-      api_material: Array<Material>;
-      api_ndock: Array<RepairDock>;
-      api_p_bgm_id: number;
-      api_parallel_quest_count: number;
-      api_ship: Array<Ship>;
+      GET: {
+        api_basic: PlayerProfile;
+        api_combined_flag: number;
+        api_deck_port: Array<Fleet>;
+        api_event_object?: EventObject;
+        api_log: ApiLog;
+        api_material: Array<Material>;
+        api_ndock: Array<RepairDock>;
+        api_p_bgm_id: number;
+        api_parallel_quest_count: number;
+        api_ship: Array<Ship>;
+      };
+      POST: {
+        api_port: string;
+        api_sort_key: string;
+        api_sort_order: string;
+      };
     }
 
     /**
@@ -206,7 +214,36 @@ declare namespace kcsapi {
     export interface GetMapCell extends Array<MapCell> {
     }
 
+    /**
+     * @event START_SORTIE
+     */
     export interface StartSortie {
+    }
+
+    /**
+     * @event GET_QUEST_LIST
+     * @path /api_get_member/questlist
+     */
+    export interface GetQuestList {
+      GET: {
+        api_count: number;
+        api_disp_page: number;
+        api_exec_count: number;
+        api_exec_type: number;
+        api_list: Array<Quest>;
+        api_page_count: number;
+      };
+      POST: {
+        api_page_no: string;
+      };
+    }
+
+    /**
+     * @event GET_MATERIAL
+     * @api /api_get_member/material
+     */
+    export interface GetMaterial {
+      GET: Array<Material>;
     }
   }
 // SORTIES
@@ -218,7 +255,9 @@ declare namespace kcsapi {
     api_passed: number;
   }
 
-
+  /**
+   * Player profile
+   */
   interface PlayerProfile {
     api_active_flag: number;
     api_comment: string;
@@ -370,6 +409,13 @@ declare namespace kcsapi {
     api_taisen: Array<number>;
   }
 
+  // Material/resource
+  interface Material {
+    api_id: number;
+    api_member_id: number;
+    api_value: number;
+  }
+
   // Remodel done
   // @fixme
   interface SlotItem {
@@ -383,6 +429,17 @@ declare namespace kcsapi {
     api_category: number;
     api_count: number;
     api_description: string|Array<string>;
+  }
+
+  interface Quest {
+    api_no: number;
+    api_title: string;
+    api_detail: string;
+    api_category: number;
+    api_type: number;
+    api_get_material: Array<number>;
+    api_state: number;          // 1 = 50%
+    api_progress_flag: number;  // falsy
   }
 
   /**

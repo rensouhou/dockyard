@@ -50,10 +50,10 @@ export function materialTransform(list) {
  */
 export function shipTypeTransform(obj) {
   return cleanedObject([obj.api_sortno, {
-    equippableTypes: obj.api_equip_type,
     id: obj.api_id,
     name: obj.api_name,
     sortNo: obj.api_sortno,
+    equippableTypes: obj.api_equip_type,
     _unknown: {
       kcnt: obj.api_kcnt,
       scnt: obj.api_scnt
@@ -68,6 +68,7 @@ export function shipTypeTransform(obj) {
  */
 export function shipTransform(obj) {
   return cleanedObject([obj.api_id, {
+    id: obj.api_id,
     name: obj.api_name,
     nameReading: obj.api_yomi,
     message: formatLineBreaks(obj.api_getmes),
@@ -99,7 +100,6 @@ export function shipTransform(obj) {
       endurance: obj.api_taik,
       antiAir: obj.api_tyku
     },
-    id: obj.api_id,
     slot: {
       count: obj.api_slot_num,
       planeCapacity: obj.api_maxeq

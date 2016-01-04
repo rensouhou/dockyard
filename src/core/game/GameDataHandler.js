@@ -24,6 +24,7 @@ import * as handlers from './handlers';
 import models from './dataModels';
 import * as Stores from './stores';
 import { ActionHandler } from '../../../runtime/firebase';
+import { DataAdapter } from '../db'
 
 /**
  * @type {Dockyard.GameDataHandler}
@@ -56,10 +57,13 @@ export default class GameDataHandler {
     });
     console.groupEnd();
 
+    console.group('Create data adapters');
+    // Create a new data adapter and register it
+    let adapter = new DataAdapter();
+    this.dataAdapter = dispatcher.register(adapter.getHandlerFn.bind(adapter));
     console.groupEnd();
 
-    // "Middleware"
-    let actionHandler = dispatcher.register(ActionHandler.handlerFn);
+    console.groupEnd();
 
     return this.listenerFn.bind(this);
   }

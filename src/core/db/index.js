@@ -6,4 +6,10 @@
  * @module core/db/index
  */
 
-import Dexie from 'dexie';
+import db from './db';
+import DataAdapter from './dataAdapter';
+
+export {
+  DataAdapter,
+  db
+}

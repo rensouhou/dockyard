@@ -17,8 +17,9 @@ export function transformPlayerProfile(o) {
     name: o.api_nickname,
     memberId: o.api_member_id,
     status: null,
+    level: o.api_level,
     experience: o.api_experience,
-    count: o.api_fcoin,
+    coins: o.api_fcoin,
     furniture: o.api_furniture,
     fleets: o.api_count_deck,
     docks: {
@@ -102,6 +103,25 @@ export function transformMaterials(o) {
 }
 
 /**
+ * @param {kcsapi.OpponentInfo} o
+ * @returns {Object}
+ */
+export function transformOpponentInfo(o) {
+  return {
+    name: o.api_nickname,
+    level: o.api_level,
+    rank: o.api_rank,
+    experience: o.api_experience,
+    fleet: o.api_deck,
+    fleetName: o.api_deckname,
+    unknown: {
+      fleetNameId: o.api_deckname_id,
+      nicknameId: o.api_nickname_id
+    }
+  }
+}
+
+/**
  * @param {kcsapi.Quest} o
  * @returns {Array}
  */
@@ -115,5 +135,27 @@ export function transformQuest(o) {
     reward: o.api_get_material,
     state: o.api_state,
     inProgress: o.api_progress_flag === 1
-  }]
+  }];
+}
+
+/**
+ * @param {kcsapi.api.CraftItem.GET} o
+ * @returns {*[]}
+ */
+export function transformCraftItem(o) {
+  // Was it successful?
+  let created = o.api_create_flag === 1;
+  let devMatsUsed = o.api_shizai_flag === 1;
+
+  let slotItem;
+
+  if (created || devMatsUsed) {
+    slotItem = {
+
+    };
+  }
+
+  return [id, R.merge({
+    created, devMatsUsed
+  }, slotItem)];
 }

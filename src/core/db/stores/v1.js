@@ -1,5 +1,7 @@
 /**
  * @overview
+ *  Database schema version 1.
+ *  Assumes only a single user (for now).
  *
  * @since 0.1.1
  * @author Stefan Rimaila <stefan@rimaila.fi>
@@ -8,13 +10,18 @@
 
 export default {
   // Master API data
-  baseDataShips: '&id',
-  baseDataShipTypes: '&id',
+  baseDataShips: '&id,name,nameReading,shipType',
+  baseDataShipTypes: '&id,name',
 
   // Game data
-  quests: '&id',
+  quests: '&id,type,category',
+
+  craftedItem: '&createdAt,id,itemId',
 
   // Player data
-  playerProfile: '&memberId',
-  playerFleets: '&id'
+  playerProfile: '&memberId,name,level,experience',
+  playerFleets: '&id',
+
+  // PVP
+  pvpOpponent: '&memberId,seenAt'
 };

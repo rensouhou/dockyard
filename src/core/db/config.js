@@ -6,5 +6,5 @@
  * @module core/db/config
  */
 export default {
-  dbName: 'dockyard-dexie'
+  dbName: 'dockyard-idb'
 }

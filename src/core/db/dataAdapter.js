@@ -49,6 +49,16 @@ export default class ActionHandler {
   }
 
   /**
+   * @param {!string} key
+   * @param {*} value
+   */
+  putAll(key, value) {
+    R.forEach((val) => {
+      this.db[key].put(val);
+    }, R.toPairs(value));
+  }
+
+  /**
    * @param {Object} action
    */
   getHandlerFn(action) {
@@ -76,6 +86,16 @@ export default class ActionHandler {
         this.db.transaction('rw', this.db.quests, () => {
           R.toPairs(action.payload.quests).forEach((it) => this.db.quests.put(R.last(it)));
         });
+        break;
+
+      case Action.UPDATE_PVP_OPPONENT:
+        this.db.transaction('rw', this.db.pvpOpponent, () => {
+          this.db.pvpOpponent.put(action.payload);
+        });
+        break;
+
+      case Action.CREATE_ITEM:
+
         break;
 
       default:

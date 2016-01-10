@@ -12,6 +12,7 @@
 import GetBaseData from './GetBaseData';
 import GetQuestList from './GetQuestList';
 import GetMaterial from './GetMaterial';
+import GetOpponentInfo from './GetOpponentInfo';
 import CraftItem from './CraftItem';
 import CraftShip from './CraftShip';
 import StartSortie from './StartSortie';
@@ -21,6 +22,7 @@ export {
   GetBaseData,
   GetQuestList,
   GetMaterial,
+  GetOpponentInfo,
   CraftItem,
   CraftShip,
   StartSortie,

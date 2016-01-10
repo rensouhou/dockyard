@@ -16,8 +16,8 @@ export default class CraftItem extends BaseHandler {
     const { GET, POST } = this.method;
 
     let slotItem = GET.api_slot_item || {};
-    let created = R.T() == GET.api_create_flag;
-    let penguin = R.F() == GET.api_shizai_flag;   // Was devmats used?
+    let created = GET.api_create_flag == null;
+    let penguin = GET.api_shizai_flag == null;   // Was devmats used?
 
     let materialsUsed = {
       fuel: POST.api_item1,
@@ -47,9 +47,12 @@ export default class CraftItem extends BaseHandler {
     };
     let toInt = R.map(parseInt);
 
-    this.dispatchState(Actions.CREATE_ITEM, {
-      materialsUsed: toInt(materialsUsed),
-      item: resultingItem
+    this.dispatchState({
+      type: Actions.CREATE_ITEM,
+      payload: {
+        materialsUsed: toInt(materialsUsed),
+        item: resultingItem
+      }
     });
   }
 }

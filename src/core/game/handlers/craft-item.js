@@ -6,7 +6,7 @@
  */
 import R from 'ramda';
 import BaseHandler from './base-handler';
-import Actions from '../constants/Actions';
+import Actions from '../constants/actions';
 
 export default class CraftItem extends BaseHandler {
   handleState() {

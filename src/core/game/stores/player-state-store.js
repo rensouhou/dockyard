@@ -7,7 +7,7 @@
  */
 
 import { MapStore } from 'flux/utils';
-import Action from '../constants/Actions';
+import Action from '../constants/actions';
 
 const initialState = {
   materials: {}

@@ -10,7 +10,7 @@ import R from 'ramda';
 import { Tuple } from 'ramda-fantasy';
 import config from './config';
 import stores from './stores';
-import Action from '../game/constants/Actions';
+import Action from '../game/constants/actions';
 
 export default class ActionHandler {
   db = null;

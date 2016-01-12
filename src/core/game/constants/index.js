@@ -6,9 +6,9 @@
  * @module core/game/constants
  */
 
-import Actions from './Actions';
-import ActionTypes from './ActionTypes';
-import GameState from './GameState';
+import Actions from './actions';
+import ActionTypes from './action-types';
+import GameState from './game-state';
 import ExtensionEvent from './extension-events';
 
 export {

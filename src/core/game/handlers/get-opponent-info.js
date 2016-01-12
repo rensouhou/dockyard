@@ -8,7 +8,7 @@
 import R from 'ramda';
 
 import BaseHandler from './base-handler';
-import Action from '../constants/Actions';
+import Action from '../constants/actions';
 import { apiData } from '../transformers';
 
 export default class GetOpponentInfo extends BaseHandler {

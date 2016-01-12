@@ -149,7 +149,11 @@ declare namespace kcsapi {
      * @event GET_OPPONENT_INFO
      * @path /api/req/member/get_practice_enemyinfo
      */
-    export interface GetOpponentInfo extends OpponentInfo {
+    export interface GetOpponentInfo {
+      GET: OpponentInfo;
+      POST: {
+        api_member_id: string;
+      }
     }
 
     /**
@@ -174,9 +178,13 @@ declare namespace kcsapi {
         api_create_flag: number;      // 0/1 bool?
         api_material: Array<number>;  // "simple" material array
         api_shizai_flag: number;      // 0/1 bool, was dev mats used?
-        api_slotitem: any;            // actually object
-        api_type3: any;               // ??
-        api_unsetslot: Array<number>; // ships that can equip?
+        api_slot_item?: {
+          api_id: number;
+          api_slotitem_id: number;
+        };
+        api_fdata: string;             // ??
+        api_type3?: any;               // ??
+        api_unsetslot?: Array<number>; // unset/unequipped items in inventory
       }
       POST: {
         api_item1: string;    // fuel
@@ -246,10 +254,11 @@ declare namespace kcsapi {
       GET: Array<Material>;
     }
   }
-// SORTIES
-// ---------
-
-// Single map cell
+  /**
+   * ## SORTIES
+   *
+   * Single map cell
+   */
   interface MapCell {
     api_id: number;
     api_passed: number;
@@ -295,27 +304,6 @@ declare namespace kcsapi {
     api_tutorial_progress: number;
   }
 
-  /**
-   * PVP opponent detail info
-   */
-  interface OpponentInfo {
-    api_cmt: string;      // As opposed to `api_comment` in `PlayerProfile`
-    api_cmt_id: string;
-    api_deck: any;
-    api_deckname: string;
-    api_deckname_id: string;
-    api_experience: Array<number>;
-    api_friend: number;
-    api_furniture: number;
-    api_level: number;
-    api_member_id: number;
-    api_nickname: string;
-    api_nickname_id: string;
-    api_rank: number;
-    api_ship: Array<number>;      // ships/maxships
-    api_slotitem: Array<number>;  // slotitems/maxslotitems
-  }
-
   interface Fleet {
     api_flagship: string;
     api_id: number;
@@ -341,6 +329,46 @@ declare namespace kcsapi {
     api_id: number;
     api_member_id: number;
     api_value: number;
+  }
+
+  /**
+   * ### PVP
+   *
+   * Opponent detail info
+   */
+  interface OpponentInfo {
+    api_cmt: string;              // As opposed to `api_comment` in `PlayerProfile`
+    api_cmt_id: string;
+    api_deck: OpponentInfoFleet;
+    api_deckname: string;
+    api_deckname_id: string;
+    api_experience: Array<number>;
+    api_friend: number;
+    api_furniture: number;
+    api_level: number;
+    api_member_id: number;
+    api_nickname: string;
+    api_nickname_id: string;      // current player instance name?
+    api_rank: number;
+    api_ship: Array<number>;      // ships/maxships
+    api_slotitem: Array<number>;  // slotitems/maxslotitems
+  }
+
+  /**
+   * Opponent fleet information (in info screen)
+   */
+  interface OpponentInfoFleet {
+    api_ships: Array<OpponentInfoShip>;
+  }
+
+  /**
+   * Opponent's ship information (from info screen)
+   */
+  interface OpponentInfoShip {
+    api_id: number;
+    api_level: number;
+    api_ship_id: number;
+    api_star: number;
   }
 
   /**

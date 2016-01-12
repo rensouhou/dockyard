@@ -41,7 +41,7 @@ let loaders = [
     query: {
       cacheDirectory: true,
       presets: ['es2015', 'react', 'stage-1'],
-      plugins: ['transform-object-assign']
+      plugins: ['transform-object-assign', 'transform-node-env-inline']
     }
   },
   {

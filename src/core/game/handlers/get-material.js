@@ -6,7 +6,7 @@
  * @module core/game/handlers/GetMaterial
  */
 
-import BaseHandler from './BaseHandler';
+import BaseHandler from './base-handler';
 import Action from '../constants/Actions';
 import { apiData } from '../transformers';
 

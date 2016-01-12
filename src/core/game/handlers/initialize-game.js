@@ -7,7 +7,7 @@
  */
 import R from 'ramda';
 
-import BaseHandler from './BaseHandler';
+import BaseHandler from './base-handler';
 import { Actions as Action } from '../constants';
 
 import { materialTransform, shipTransform, shipTypeTransform } from '../transformers/mst';

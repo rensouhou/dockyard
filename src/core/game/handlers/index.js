@@ -9,14 +9,14 @@
  *  All handlers should match the handlers found in {@link core/game/ApiEvents} as
  *  de-camelcased versions, e.g. `GET_BASE_DATA` turns into `GetBaseData`.
  */
-import GetBaseData from './GetBaseData';
-import GetQuestList from './GetQuestList';
-import GetMaterial from './GetMaterial';
-import GetOpponentInfo from './GetOpponentInfo';
-import CraftItem from './CraftItem';
-import CraftShip from './CraftShip';
-import StartSortie from './StartSortie';
-import InitializeGame from './InitializeGame';
+import GetBaseData from './get-base-data';
+import GetQuestList from './get-quest-list';
+import GetMaterial from './get-material';
+import GetOpponentInfo from './get-opponent-info';
+import CraftItem from './craft-item';
+import CraftShip from './craft-ship';
+import StartSortie from './start-sortie';
+import InitializeGame from './initialize-game';
 
 export {
   GetBaseData,

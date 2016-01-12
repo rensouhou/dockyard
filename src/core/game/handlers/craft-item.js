@@ -5,7 +5,7 @@
  * @author Stefan Rimaila <stefan@rimaila.fi>
  */
 import R from 'ramda';
-import BaseHandler from './BaseHandler';
+import BaseHandler from './base-handler';
 import Actions from '../constants/Actions';
 
 export default class CraftItem extends BaseHandler {

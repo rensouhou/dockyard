@@ -8,7 +8,7 @@
 
 import R from 'ramda';
 
-import BaseHandler from './BaseHandler';
+import BaseHandler from './base-handler';
 import Actions from '../constants/Actions';
 
 export default class CraftShip extends BaseHandler {

@@ -7,7 +7,7 @@
  */
 import R from 'ramda';
 
-import BaseHandler from './BaseHandler';
+import BaseHandler from './base-handler';
 import Action from '../constants/Actions';
 import { apiData } from '../transformers';
 

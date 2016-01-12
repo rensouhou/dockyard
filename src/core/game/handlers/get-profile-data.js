@@ -7,7 +7,7 @@
  * @module src/core/game/handlers/GetProfileData
  */
 
-import BaseHandler from './BaseHandler';
+import BaseHandler from './base-handler';
 
 export default class GetProfileData extends BaseHandler {
   handleState() {

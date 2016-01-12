@@ -9,7 +9,7 @@ import T from 'immutable';
 import invariant from 'invariant';
 import qs from 'query-string';
 
-import GameApiEvents from './game/ApiEvents';
+import GameApiEvents from './game/api-events';
 import config from '../config/extension';
 import AddonEvent from '../enums/addonEvents';
 

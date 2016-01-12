@@ -9,5 +9,7 @@
  */
 import { GameDataHandler } from '../core/game';
 
-chrome.runtime.onConnect.addListener(new GameDataHandler());
+chrome.runtime.onConnect.addListener(new GameDataHandler({
+  debug: process.env.NODE_ENV === 'dev'
+}));
 

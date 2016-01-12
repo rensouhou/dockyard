@@ -16,12 +16,12 @@ export default {
   // Game data
   quests: '&id,type,category',
 
-  craftedItem: '&createdAt,id,itemId',
-
   // Player data
   playerProfile: '&memberId,name,level,experience',
   playerFleets: '&id',
+  craftedItem: '&createdAt,id,itemId',
 
   // PVP
-  pvpOpponent: '&memberId,seenAt'
+  pvpOpponent: '&memberId,seenAt',
+  pvpShips: '&id,shipId'
 };

@@ -9,20 +9,18 @@
  * @todo Data adapters; use Firebase, IndexedDB, etc.
  * @todo Only listen to messages from a defined namespace
  */
-import _ from 'lodash';
 import T from 'immutable';
 import R from 'ramda';
 import invariant from 'invariant';
-import uppercamelcase from 'uppercamelcase';
 import decamelize from 'decamelize';
 
-import NetworkRequestHandler from '../NetworkRequestHandler';
-import dispatcher from '../GameDataDispatcher';
+import NetworkRequestHandler from '../network-request-handler';
+import dispatcher from '../game-dispatcher';
 import AddonEvent from '../../enums/addonEvents';
 
 import * as handlers from './handlers';
 import models from './dataModels';
-import * as Stores from './stores';
+import * as stores from './stores';
 import { ActionHandler } from '../../../runtime/firebase';
 import { DataAdapter } from '../db'
 
@@ -34,6 +32,10 @@ export default class GameDataHandler {
   models = T.Map();
   stores = T.Set();
   dataAdapter = null;
+  dataAdapters = [];
+  options = {
+    debug: false
+  };
 
   /**
    * @constructor
@@ -43,6 +45,12 @@ export default class GameDataHandler {
   constructor(opts) {
     console.group(`Create new ${this.constructor.name}`);
 
+    if (!(R.isNil(opts) && R.isEmpty(opts)))
+      this.options = R.merge(this.options, opts);
+
+    console.info('Using options: %O', this.options);
+
+    // @fixme Unify the following handler bindings to use common patterns
     console.group('Register handlers');
     T.Map(handlers).forEach((eventName, handler) => {
       const handlerName = decamelize(handler).toUpperCase();
@@ -51,8 +59,8 @@ export default class GameDataHandler {
     console.groupEnd();
 
     console.group('Instantiate stores');
-    Object.keys(Stores).forEach((storeName) => {
-      let Store = Stores[storeName];
+    Object.keys(stores).forEach((storeName) => {
+      let Store = stores[storeName];
       this.stores = this.stores.add(Store.storeName, new Store(dispatcher));
     });
     console.groupEnd();
@@ -83,7 +91,7 @@ export default class GameDataHandler {
    * @param {Object} msg
    */
   messageListenerFn(msg) {
-    if (_.isArray(msg)) {
+    if (this.options.debug && R.isArrayLike(msg)) {
       console.log.apply(console, ['debug =>'].concat(msg));
     }
 
@@ -156,7 +164,7 @@ export default class GameDataHandler {
    */
   _createNewHandlerInstance(Handler, eventRecord, dispatcher) {
     invariant(Handler, 'Cannot have an empty `Handler`.');
-
     return new Handler(eventRecord, dispatcher);
   }
 }
+

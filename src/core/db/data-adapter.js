@@ -65,8 +65,8 @@ export default class ActionHandler {
     console.log('db middleware action handler got action =>', action);
 
     switch (action.type) {
+      // Initial base data for the game
       case Action.UPDATE_BASE_DATA:
-
         this.db.transaction('rw',
           this.db.baseDataShips,
           this.db.baseDataShipTypes,
@@ -83,19 +83,22 @@ export default class ActionHandler {
         break;
 
       case Action.UPDATE_QUEST_LIST:
-        this.db.transaction('rw', this.db.quests, () => {
-          R.toPairs(action.payload.quests).forEach((it) => this.db.quests.put(R.last(it)));
-        });
+        this.db.transaction('rw',
+          this.db.quests,
+          () => {
+            R.toPairs(action.payload.quests).forEach((it) => this.db.quests.put(R.last(it)));
+          });
         break;
 
       case Action.UPDATE_PVP_OPPONENT:
-        this.db.transaction('rw', this.db.pvpOpponent, () => {
-          this.db.pvpOpponent.put(action.payload);
-        });
+        this.db.transaction('rw',
+          this.db.pvpOpponent,
+          () => {
+            this.db.pvpOpponent.put(action.payload);
+          });
         break;
 
       case Action.CREATE_ITEM:
-
         break;
 
       default:

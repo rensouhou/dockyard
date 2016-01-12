@@ -7,7 +7,7 @@
  */
 
 import db from './db';
-import DataAdapter from './dataAdapter';
+import DataAdapter from './data-adapter';
 
 export {
   DataAdapter,

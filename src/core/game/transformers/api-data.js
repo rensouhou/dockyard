@@ -7,6 +7,19 @@
  */
 
 import R from 'ramda';
+import { Tuple, Maybe } from 'ramda-fantasy';
+
+const map = R.map;
+const { Just, Nothing } = Maybe;
+
+/**
+ * @param {Function} fn
+ * @returns {Function}
+ */
+const reduceList = (fn) => R.reduce((list, s) => {
+  if (s && s !== -1) list = list.concat(fn(s));
+  return list;
+}, []);
 
 /**
  * @param {kcsapi.PlayerProfile} o
@@ -78,6 +91,7 @@ export function transformFleet(o) {
 /**
  * @param {kcsapi.Material} o
  * @returns {Object}
+ * @todo Redo return value into a tuple
  */
 export function transformMaterial(o) {
   let resources = {
@@ -103,6 +117,19 @@ export function transformMaterials(o) {
 }
 
 /**
+ * @param {kcsapi.OpponentInfoShip} o
+ * @returns {Object}
+ */
+export function transformOpponentInfoShip(o) {
+  return {
+    id: o.api_id,
+    level: o.api_level,
+    shipId: o.api_ship_id,
+    star: o.api_star
+  }
+}
+
+/**
  * @param {kcsapi.OpponentInfo} o
  * @returns {Object}
  */
@@ -112,9 +139,9 @@ export function transformOpponentInfo(o) {
     level: o.api_level,
     rank: o.api_rank,
     experience: o.api_experience,
-    fleet: o.api_deck,
+    fleet: reduceList(transformOpponentInfoShip)(o.api_deck.api_ships),
     fleetName: o.api_deckname,
-    unknown: {
+    _unknown: {
       fleetNameId: o.api_deckname_id,
       nicknameId: o.api_nickname_id
     }
@@ -150,9 +177,7 @@ export function transformCraftItem(o) {
   let slotItem;
 
   if (created || devMatsUsed) {
-    slotItem = {
-
-    };
+    slotItem = {};
   }
 
   return [id, R.merge({

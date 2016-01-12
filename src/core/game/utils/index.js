@@ -5,6 +5,4 @@
  * @author Stefan Rimaila <stefan@rimaila.fi>
  */
 
-import Action from './Action';
-
-export { Action };
+export default {};

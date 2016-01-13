@@ -8,7 +8,7 @@
 
 import T from 'immutable';
 import { MapStore } from 'flux/utils';
-import { Actions as Action, GameState } from '../constants';
+import { Action, GameState } from '../constants';
 
 const initialState = {
   currentState: GameState.IDLE

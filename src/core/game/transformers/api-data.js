@@ -7,19 +7,8 @@
  */
 
 import R from 'ramda';
-import { Tuple, Maybe } from 'ramda-fantasy';
 
-const map = R.map;
-const { Just, Nothing } = Maybe;
-
-/**
- * @param {Function} fn
- * @returns {Function}
- */
-const reduceList = (fn) => R.reduce((list, s) => {
-  if (s && s !== -1) list = list.concat(fn(s));
-  return list;
-}, []);
+import { reduceWithTransformer } from '../utils';
 
 /**
  * @param {kcsapi.PlayerProfile} o
@@ -139,7 +128,7 @@ export function transformOpponentInfo(o) {
     level: o.api_level,
     rank: o.api_rank,
     experience: o.api_experience,
-    fleet: reduceList(transformOpponentInfoShip)(o.api_deck.api_ships),
+    fleet: reduceWithTransformer(transformOpponentInfoShip, o.api_deck.api_ships),
     fleetName: o.api_deckname,
     _unknown: {
       fleetNameId: o.api_deckname_id,

@@ -11,9 +11,6 @@ import { apiData } from '../transformers';
 
 export default class GetBaseData extends BaseHandler {
   handleState() {
-    console.log('GetBaseData');
-    console.log('└─ eventRecord => %O', this.eventRecord.toJS());
-
     /** @type {kcsapi.api.GetBaseData.GET} */
     const GET = this.method.GET;
 

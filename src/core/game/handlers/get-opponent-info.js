@@ -8,24 +8,25 @@
 import R from 'ramda';
 
 import BaseHandler from './base-handler';
-import Action from '../constants/actions';
-import { apiData } from '../transformers';
+import { Action } from '../constants';
+import { transformOpponentInfo } from '../transformers/api-data';
+import { asNumber } from '../utils';
 
 export default class GetOpponentInfo extends BaseHandler {
   handleState() {
-    const timestamp = +(new Date()),
-          /** @type {kcsapi.api.GetOpponentInfo} */
-          method    = this.method,
+    const seenAt = +(new Date());
 
-          /** @type {kcsapi.api.GetOpponentInfo.GET} */
-          GET       = this.method.GET,
+    /** @type {kcsapi.api.GetOpponentInfo.GET} */
+    const GET = this.method.GET;
 
-          /** @type {kcsapi.api.GetOpponentInfo.POST} */
-          POST      = this.method.POST,
-          memberId  = parseInt(POST.api_member_id);
+    /** @type {kcsapi.api.GetOpponentInfo.POST} */
+    const POST = this.method.POST;
 
-    let meta    = { seenAt: timestamp, memberId },
-        payload = R.merge(meta, apiData.transformOpponentInfo(GET));
+    /** @type {?(Just|Nothing)} */
+    const memberId = asNumber(POST.api_member_id);
+
+    let meta = { seenAt, memberId };
+    let payload = R.merge(meta, transformOpponentInfo(GET));
 
     this.dispatchState({
       type: Action.UPDATE_PVP_OPPONENT,

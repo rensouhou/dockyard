@@ -5,23 +5,21 @@
  * @author Stefan Rimaila <stefan@rimaila.fi>
  * @module
  */
-
 import R from 'ramda';
 
 import BaseHandler from './base-handler';
-import Actions from '../constants/actions';
+import { Action } from '../constants';
 
 export default class CraftShip extends BaseHandler {
   handleState() {
-    console.log('CraftShip');
-    console.log('this.method =>', this.method);
-
+    /** @type {kcsapi.api.CraftShip} */
     const { GET, POST } = this.method;
 
-    this.dispatchState(Actions.CREATE_SHIP, {
-      actionType: 'UNKNOWN',
-      eventName: this.eventRecord.event,
-      payload: {}
+    this.dispatchState({
+      type: Action.CREATE_SHIP,
+      payload: {
+
+      }
     });
   }
 }

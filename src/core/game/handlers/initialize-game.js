@@ -8,14 +8,16 @@
 import R from 'ramda';
 
 import BaseHandler from './base-handler';
-import { Actions as Action } from '../constants';
-
+import { Action } from '../constants';
 import { materialTransform, shipTransform, shipTypeTransform } from '../transformers/mst';
 
 export default class InitializeGame extends BaseHandler {
-  handleState() {
-    console.log('InitializeGame#handleState()');
+  constructor(eventRecord, dispatcher) {
+    super(eventRecord, dispatcher);
+    console.log(`${this.constructor.name}#constructor`);
+  }
 
+  handleState() {
     /** @type {kcsapi.api.InitializeGame} */
     const GET = this.method.GET;
 

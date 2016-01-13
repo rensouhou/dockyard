@@ -29,6 +29,9 @@ export default class BaseHandler {
    * @param {Dockyard.Dispatcher} dispatcher
    */
   constructor(eventRecord, dispatcher) {
+    let _name = this.constructor.name;
+    console.log(`${_name}#constructor`);
+
     this.eventRecord = eventRecord;
     this.eventName = eventRecord.event;
     this.dispatcher = dispatcher;

@@ -7,7 +7,9 @@
  */
 
 import v1 from './v1';
+import v2 from './v2';
 
 export default [
-  [1, v1]
+  [1, v1],
+  [2, v2]
 ];

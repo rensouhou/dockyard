@@ -22,10 +22,9 @@ export let asBoolean = (n) => n === 1;
  * @param {?number} n
  * @returns {?number}
  */
-export let asNumber = (n) => (
-  isNaN(n)
-    ? Nothing()
-    : Just(parseInt(n))).getOrElse(null);
+export let asNumber = (n) => (isNaN(n)
+  ? Nothing()
+  : Just(parseInt(n))).getOrElse(null);
 
 /**
  * @sig Transformer => (fn -> [l]) -> [a]

@@ -79,9 +79,6 @@ export default class ActionHandler {
           });
         break;
 
-      case Action.UPDATE_PLAYER_STATE:
-        break;
-
       case Action.UPDATE_QUEST_LIST:
         this.db.transaction('rw',
           this.db.quests,
@@ -99,6 +96,13 @@ export default class ActionHandler {
         break;
 
       case Action.CREATE_ITEM:
+        this.db.transaction('rw',
+          this.db.craftedItem,
+          this.db.playerResources,
+          () => {
+            this.db.craftedItem.put(action.payload.craftedItem);
+            this.db.playerResources.put(action.payload.resourceState);
+          });
         break;
 
       default:

@@ -182,7 +182,7 @@ declare namespace kcsapi {
           api_id: number;
           api_slotitem_id: number;
         };
-        api_fdata: string;             // ??
+        api_fdata: string;             // ?? Happens only when failing
         api_type3?: any;               // ??
         api_unsetslot?: Array<number>; // unset/unequipped items in inventory
       }
@@ -192,6 +192,19 @@ declare namespace kcsapi {
         api_item3: string;    // steel
         api_item4: string;    // bauxite
       }
+    }
+
+    /**
+     * @event CRAFT_SHIP
+     * @path null
+     */
+    export interface CraftShip {
+      GET: {
+
+      };
+      POST: {
+
+      };
     }
 
     /**
